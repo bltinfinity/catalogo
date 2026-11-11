@@ -464,7 +464,7 @@ function cardHTML(p){
   var src = p.f ? 'fotos/'+p.f+'.jpg' : (IMAGES[p.id] ? 'data:image/jpeg;base64,'+IMAGES[p.id] : '');
   var photo = !!src;
   var ph = photo ? '<img src="'+src+'" alt="'+esc((p.b?p.b+' ':'')+p.n)+'" loading="lazy" decoding="async" onerror="this.remove()">' : '<span class="mono">'+esc(p.b||CAT_LABEL[p.c])+'</span>';
-  var last = p.q===1 ? '<span class="last">Última unidade</span>' : (p.q<=3 ? '<span class="last">Restam '+p.q+'</span>' : '');
+  var last = '';
   var ctl = q
     ? '<div class="step" role="group" aria-label="Quantidade"><button type="button" data-act="dec" data-id="'+p.id+'" aria-label="Diminuir">−</button><b>'+q+'</b><button type="button" data-act="inc" data-id="'+p.id+'" aria-label="Aumentar"'+(q>=p.q?' disabled':'')+'>+</button></div>'
     : '<button type="button" class="btn" data-act="add" data-id="'+p.id+'">Adicionar</button>';
