@@ -106,7 +106,7 @@ a{color:inherit}
 .top.compact{box-shadow:0 1px 0 rgba(106,33,50,.14)}
 .hbtn{color:#6a2132}
 .hbtn:hover{background:rgba(106,33,50,.09)}
-.shiprow{align-self:stretch;width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:10px;min-height:48px}.hship2{margin:0;font-size:clamp(12px,3.2vw,14px);font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#ffb3a6}.shiprow .hcart{grid-column:auto;grid-row:auto;justify-self:auto;margin:0 -8px 0 0;color:#fff;flex:none}.shiprow .hcart:hover{background:rgba(255,255,255,.14)}.shiprow .hcart.float{position:fixed;right:max(14px,env(safe-area-inset-right,0px));bottom:max(14px,env(safe-area-inset-bottom,0px));margin:0;width:54px;height:54px;background:#6a2132;color:#fff;box-shadow:0 6px 18px rgba(0,0,0,.28);z-index:60}.shiprow .hcart.float b{top:-2px;right:-2px}
+.shiprow{align-self:stretch;width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:10px;min-height:48px}.hship2{margin:0;font-size:clamp(12px,3.2vw,14px);font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#ffb3a6}.crumbrow{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}.crumbrow .crumb{margin:0;min-width:0}.cartslot{flex:none;width:48px;height:48px;display:inline-flex;align-items:center;justify-content:center}.cartslot .hcart{grid-column:auto;grid-row:auto;justify-self:auto;margin:0;width:48px;height:48px;color:#6a2132;border:1.5px solid rgba(106,33,50,.28);background:#fff}.cartslot .hcart:hover{background:rgba(106,33,50,.08)}.cartslot .hcart.float{position:fixed;right:max(14px,env(safe-area-inset-right,0px));bottom:max(14px,env(safe-area-inset-bottom,0px));width:54px;height:54px;background:#6a2132;color:#fff;border-color:#6a2132;box-shadow:0 6px 18px rgba(0,0,0,.28);z-index:60}.cartslot .hcart b{top:-4px;right:-4px}
 .tagline{color:#6a2132;font-weight:600}
 .top .logo{height:68px}
 .top.compact .logo{height:44px}
@@ -304,7 +304,6 @@ footer small{display:block;width:100%;color:#e5c5c0;font-size:13px}
       </div>
       <div class="shiprow" id="shiprow">
         <p class="hship2">Enviamos para todo o Brasil</p>
-        <button class="hbtn hcart inrow" id="hdrCart" type="button" aria-label="Abrir meu pedido"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.6 12.2a1.5 1.5 0 0 0 1.5 1.2h8.6a1.5 1.5 0 0 0 1.5-1.1L21 8H6.1"/></svg><b id="hdrCount">0</b></button>
       </div>
     </div>
   </div>
@@ -312,7 +311,10 @@ footer small{display:block;width:100%;color:#e5c5c0;font-size:13px}
 
   <section id="catalogo">
     <div class="in">
-      <nav class="crumb" aria-label="Você está em"><a href="#inicio">Início</a><span aria-hidden="true">/</span><b id="crumbCat">Catálogo</b></nav>
+      <div class="crumbrow">
+        <nav class="crumb" aria-label="Você está em"><a href="#inicio">Início</a><span aria-hidden="true">/</span><b id="crumbCat">Catálogo</b></nav>
+        <span class="cartslot" id="cartslot"><button class="hbtn hcart" id="hdrCart" type="button" aria-label="Abrir meu pedido"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><b id="hdrCount">0</b></button></span>
+      </div>
       <div class="chead">
         <div><h2>Catálogo de produtos</h2><p class="count" id="count" aria-live="polite"></p></div>
         <select id="sort" aria-label="Ordenar"><option value="rel">Relevância</option><option value="az">Ordem A–Z</option><option value="low">Menor preço</option><option value="high">Maior preço</option></select>
@@ -756,7 +758,7 @@ function requestMessage(){
   var top = document.querySelector('.top'), on = false;
   function chk(){ var y = window.pageYOffset > 60; if(y!==on){ on = y; top.classList.toggle('compact',on); } }
   window.addEventListener('scroll',chk,{passive:true}); chk();
-  var row=document.getElementById('shiprow'), cb=document.getElementById('hdrCart');
+  var row=document.getElementById('cartslot'), cb=document.getElementById('hdrCart');
   function fl(){ if(!row||!cb) return; var r=row.getBoundingClientRect(); cb.classList.toggle('float', r.bottom < 0); }
   window.addEventListener('scroll',fl,{passive:true}); window.addEventListener('resize',fl); fl();
 })();
