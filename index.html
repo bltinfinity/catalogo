@@ -25,7 +25,7 @@
 <style>html{color-scheme:light}body{margin:0}img{max-width:100%}</style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=DM+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap">
 <style>
 /* Layout: cabeçalho vinho fixo, banner de abertura com padrão geométrico árabe, três cartões de categoria
    sobrepostos ao banner, catálogo com abas, como comprar, encomenda e rodapé. Cor de marca = vinho da logo. */
@@ -50,6 +50,7 @@
   --err:#b3261e;
   --shadow:0 10px 28px rgba(117,32,48,.12);
   --font-display:'Bricolage Grotesque','Segoe UI',system-ui,-apple-system,sans-serif;
+  --font-serif:'Playfair Display',Georgia,'Times New Roman',serif;
   --font-body:'DM Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
   --gutter:max(16px,env(safe-area-inset-left,0px));
   --gutter-r:max(16px,env(safe-area-inset-right,0px));
@@ -162,6 +163,62 @@ section{padding-block:56px 0}
 .step button{border:0;background:var(--tint);width:44px;height:42px;font-size:20px;font-weight:700;color:var(--ink)}
 .step button[disabled]{opacity:.35;cursor:not-allowed}
 .step b{font-variant-numeric:tabular-nums}
+/* catálogo estilo vitrine: busca, abas, filtros laterais */
+.sh h2,.chead h2,.filters h3{font-family:var(--font-serif);letter-spacing:-.01em}
+.crumb{display:flex;gap:8px;align-items:center;font-size:14px;color:var(--muted);margin-bottom:18px}
+.crumb a{text-decoration:none}.crumb a:hover{color:var(--ink)}.crumb b{font-weight:500;color:var(--ink)}
+.chead{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin-bottom:16px}
+.chead h2{font-size:clamp(28px,5vw,38px);font-weight:700}
+.chead .count{margin:4px 0 0}
+.chead select{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 12px;min-width:0}
+.sbar{display:flex;margin-bottom:6px}
+.sbar input{flex:1;min-width:0;background:var(--surface);border:1.5px solid var(--line);border-right:0;border-radius:12px 0 0 12px;padding:14px 16px;font-size:16px}
+.sbar input:focus{outline:none;border-color:var(--btn-bg)}
+.sbar button{border:0;background:var(--btn-bg);color:var(--btn-fg);width:58px;border-radius:0 12px 12px 0;display:flex;align-items:center;justify-content:center}
+.tabs{justify-content:flex-start;gap:6px;margin:14px 0 0;border-block:1px solid var(--line);padding:0}
+.tabs .tab:first-child{margin-left:auto}.tabs .tab:last-child{margin-right:auto}
+.tab{border:0;border-bottom:2px solid transparent;border-radius:0;background:transparent;padding:14px 16px;font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.tab small{font-weight:500;letter-spacing:0}
+.tab[aria-current="true"]{background:transparent;border-color:transparent;border-bottom-color:var(--btn-bg);color:var(--ink)}
+.tab[aria-current="true"] small{opacity:1;color:var(--muted)}
+.ftoggle{display:flex;align-items:center;gap:8px;margin:16px 0 0;border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:10px 16px;font-weight:600}
+.ftoggle b{background:var(--btn-bg);color:var(--btn-fg);border-radius:999px;min-width:20px;height:20px;display:inline-flex;align-items:center;justify-content:center;font-size:12px;padding:0 6px}
+.shop{display:grid;grid-template-columns:minmax(0,1fr);gap:24px;margin-top:20px}
+.filters{display:none;flex-direction:column;gap:0}
+.filters.open{display:flex;border:1px solid var(--line);border-radius:16px;background:var(--surface);padding:6px 18px 14px}
+.fg{padding:16px 0;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:10px}
+.fg:last-of-type{border-bottom:0}
+.fg h3{font-size:19px;font-weight:700}
+.fg h3 small{font-family:var(--font-body);font-size:13px;font-weight:500;color:var(--muted)}
+.ck{display:flex;align-items:center;gap:10px;font-size:15px;cursor:pointer}
+.ck input{width:18px;height:18px;accent-color:var(--btn-bg);flex:none}
+.ck span{flex:1;min-width:0;overflow-wrap:anywhere}
+.ck small{color:var(--muted);font-size:13px}
+.prange{display:flex;align-items:center;gap:8px}
+.prange input{width:100%;min-width:0;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px}
+.prange span{color:var(--muted)}
+.fbtn{align-self:flex-start;border:0;background:var(--tint);border-radius:10px;padding:10px 18px;font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase}
+.fbtn:hover{filter:brightness(.96)}
+.pchips{display:flex;flex-wrap:wrap;gap:8px}
+.pchip{border:0;background:var(--tint);border-radius:999px;padding:7px 14px;font-size:14px;font-weight:500}
+.pchip[aria-pressed="true"]{background:var(--btn-bg);color:var(--btn-fg)}
+.blist{display:flex;flex-direction:column;gap:9px;max-height:260px;overflow-y:auto;padding-right:4px}
+.fclear{align-self:flex-start;border:0;background:transparent;color:var(--accent-ink);font-weight:700;text-decoration:underline;padding:8px 0 0}
+@media (min-width:900px){
+  .ftoggle{display:none}
+  .shop{grid-template-columns:250px minmax(0,1fr);gap:40px}
+  .filters,.filters.open{display:flex;border:0;background:transparent;padding:0;border-radius:0;position:sticky;top:104px;align-self:start;max-height:calc(100vh - 124px);overflow-y:auto}
+  .shop .grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+.card{background:transparent;border:0;border-radius:0;box-shadow:none}
+.card:hover{box-shadow:none}
+.card .ph{border-radius:10px}
+.card .body{padding:14px 2px 0}
+.card .brand{color:var(--muted);letter-spacing:.14em;font-weight:600}
+.card h3{font-weight:500}
+.card .price{font-family:var(--font-body);font-weight:700;font-size:20px}
+.card .btn{background:transparent;color:var(--btn-bg);border:1.5px solid var(--btn-bg)}
+.card .btn:hover{background:var(--btn-bg);color:var(--btn-fg);filter:none}
 .empty{text-align:center;color:var(--muted);padding:48px 8px;display:flex;flex-direction:column;align-items:center;gap:12px}
 
 /* como comprar */
@@ -235,15 +292,18 @@ footer small{display:block;width:100%;color:#e5c5c0;font-size:13px}
 
   <section id="catalogo">
     <div class="in">
-      <div class="sh"><h2>Catálogo</h2><p>Itens disponíveis agora, com o valor de venda. A disponibilidade é confirmada na conversa.</p></div>
-      <div class="tabs" id="tabs" role="tablist" aria-label="Categorias"></div>
-      <div class="tools">
-        <input id="q" type="search" placeholder="Buscar por nome ou marca" aria-label="Buscar">
-        <select id="sort" aria-label="Ordenar"><option value="az">A–Z</option><option value="low">Menor preço</option><option value="high">Maior preço</option></select>
+      <nav class="crumb" aria-label="Você está em"><a href="#inicio">Início</a><span aria-hidden="true">/</span><b id="crumbCat">Catálogo</b></nav>
+      <div class="chead">
+        <div><h2>Catálogo</h2><p class="count" id="count" aria-live="polite"></p></div>
+        <select id="sort" aria-label="Ordenar"><option value="rel">Relevância</option><option value="az">Ordem A–Z</option><option value="low">Menor preço</option><option value="high">Maior preço</option></select>
       </div>
-      <div class="chips" id="chips" hidden></div>
-      <p class="count" id="count" aria-live="polite"></p>
-      <div class="grid" id="grid"></div>
+      <form class="sbar" id="sbar" role="search"><input id="q" type="search" placeholder="Buscar perfumes, marcas..." aria-label="Buscar produto"><button type="submit" aria-label="Buscar"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></button></form>
+      <div class="tabs" id="tabs" role="tablist" aria-label="Categorias"></div>
+      <button class="ftoggle" id="fToggle" type="button" aria-expanded="false" aria-controls="filters">Filtros <b id="fCount" hidden></b></button>
+      <div class="shop">
+        <aside class="filters" id="filters" aria-label="Filtros"></aside>
+        <div class="gridwrap"><div class="grid" id="grid"></div></div>
+      </div>
     </div>
   </section>
 
@@ -313,7 +373,8 @@ var CAT_LABEL = {perfumes:'Perfume',cosmeticos:'Cosmético',diversos:'Diverso'};
 var byId = {};
 PRODUCTS.forEach(function(p){ byId[p.id]=p; });
 
-var state = {view:'perfumes', q:'', sort:'az', gen:''};
+var state = {view:'todos', q:'', sort:'rel', gens:[], brands:[], min:null, max:null};
+var TABS = [{id:'todos',label:'Todos'}].concat(CATS);
 var cart = {};
 var contact = {name:'',phone:'',insta:'',obs:''};
 
@@ -333,7 +394,7 @@ function load(){
 }
 function cartCount(){ return Object.keys(cart).reduce(function(s,id){return s+cart[id];},0); }
 function cartTotal(){ return Object.keys(cart).reduce(function(s,id){return s+cart[id]*byId[id].p;},0); }
-function inCat(cat){ return PRODUCTS.filter(function(p){return p.c===cat;}); }
+function inCat(cat){ return cat==='todos' ? PRODUCTS : PRODUCTS.filter(function(p){return p.c===cat;}); }
 function unitsIn(cat){ return inCat(cat).reduce(function(s,p){return s+p.q;},0); }
 function fmtPhone(n){ var d=String(n).replace(/\D/g,''); if(d.indexOf('55')===0) d=d.slice(2); return d.length===11 ? '('+d.slice(0,2)+') '+d.slice(2,7)+'-'+d.slice(7) : d; }
 
@@ -347,14 +408,17 @@ function renderTiles(){
   }).join('');
 }
 function renderTabs(){
-  $('tabs').innerHTML = CATS.map(function(c){
+  $('tabs').innerHTML = TABS.map(function(c){
     return '<button type="button" role="tab" class="tab" data-cat="'+c.id+'" aria-current="'+(state.view===c.id)+'">'+c.label+'<small>'+unitsIn(c.id)+'</small></button>';
   }).join('');
 }
 function setCat(id){
-  if(!CATS.some(function(c){return c.id===id;})) return;
-  state.view = id; state.gen = ''; state.q = ''; $('q').value = '';
-  renderTabs(); renderChips(); renderGrid();
+  if(!TABS.some(function(c){return c.id===id;})) return;
+  state.view = id; state.q = ''; $('q').value = ''; resetFilters();
+  renderTabs(); renderFilters(); renderGrid();
+}
+function resetFilters(){
+  state.gens = []; state.brands = []; state.min = null; state.max = null;
 }
 document.addEventListener('click',function(e){
   var a = e.target.closest('[data-cat]'); if(!a) return;
@@ -365,12 +429,20 @@ document.addEventListener('click',function(e){
 function filtered(){
   var q = norm(state.q.trim());
   var list = PRODUCTS.filter(function(p){
-    if(q) return norm(p.b+' '+p.n).indexOf(q)!==-1;
-    if(p.c!==state.view) return false;
-    if(state.gen && p.g!==state.gen) return false;
+    if(q){ if(norm(p.b+' '+p.n).indexOf(q)===-1) return false; }
+    else if(state.view!=='todos' && p.c!==state.view) return false;
+    if(state.gens.length && state.gens.indexOf(p.g)===-1) return false;
+    if(state.min!==null && p.p<state.min) return false;
+    if(state.max!==null && p.p>state.max) return false;
+    if(state.brands.length && state.brands.indexOf(p.b)===-1) return false;
     return true;
   });
   list.sort(function(a,b){
+    if(state.sort==='rel'){
+      var fa = (a.f||IMAGES[a.id]) ? 0 : 1, fb = (b.f||IMAGES[b.id]) ? 0 : 1;
+      var ca = CATS.map(function(c){return c.id;}).indexOf(a.c), cb = CATS.map(function(c){return c.id;}).indexOf(b.c);
+      return fa-fb || ca-cb || (a.b+' '+a.n).localeCompare(b.b+' '+b.n,'pt-BR');
+    }
     if(state.sort==='low') return a.p-b.p || a.n.localeCompare(b.n,'pt-BR');
     if(state.sort==='high') return b.p-a.p || a.n.localeCompare(b.n,'pt-BR');
     return (a.b+' '+a.n).localeCompare(b.b+' '+b.n,'pt-BR');
@@ -390,36 +462,77 @@ function cardHTML(p){
     + (p.b?'<div class="brand">'+esc(p.b)+'</div>':'')
     + '<h3>'+esc(p.n)+'</h3><div class="price">'+brl(p.p)+'</div>'+ctl+'</div></article>';
 }
-function renderChips(){
-  var box = $('chips');
-  if(state.view!=='perfumes'){ box.hidden = true; box.innerHTML = ''; return; }
-  box.hidden = false;
-  box.innerHTML = ['Todos','Feminino','Masculino','Unissex'].map(function(g){
-    var val = g==='Todos'?'':g;
-    return '<button type="button" class="chip" data-gen="'+val+'" aria-pressed="'+(state.gen===val)+'">'+g+'</button>';
+function scopeList(){ return state.q.trim() ? PRODUCTS : inCat(state.view); }
+function filterCount(){ return state.gens.length + state.brands.length + (state.min!==null||state.max!==null ? 1 : 0); }
+function renderFilters(){
+  var scope = scopeList(), box = $('filters');
+  var gens = ['Feminino','Masculino','Unissex'].map(function(g){
+    var n = scope.filter(function(p){return p.g===g;}).length; if(!n) return '';
+    return '<label class="ck"><input type="checkbox" data-gen="'+g+'"'+(state.gens.indexOf(g)>-1?' checked':'')+'><span>'+g+'</span><small>'+n+'</small></label>';
   }).join('');
+  var bm = {}; scope.forEach(function(p){ if(p.b) bm[p.b]=(bm[p.b]||0)+1; });
+  var brands = Object.keys(bm).sort(function(a,b){return a.localeCompare(b,'pt-BR');});
+  var bh = brands.map(function(b){
+    return '<label class="ck"><input type="checkbox" data-brand="'+esc(b)+'"'+(state.brands.indexOf(b)>-1?' checked':'')+'><span>'+esc(b)+'</span><small>'+bm[b]+'</small></label>';
+  }).join('');
+  var chips = [100,200,300,500].map(function(v){
+    return '<button type="button" class="pchip" data-max="'+v+'" aria-pressed="'+(state.max===v&&state.min===null)+'">Até '+brl(v).replace(',00','')+'</button>';
+  }).join('');
+  box.innerHTML =
+    (gens ? '<div class="fg"><h3>Gênero</h3>'+gens+'</div>' : '')
+    + '<div class="fg"><h3>Preço</h3><div class="prange"><input id="pMin" type="number" inputmode="numeric" min="0" placeholder="Mín" aria-label="Preço mínimo" value="'+(state.min===null?'':state.min)+'"><span>—</span><input id="pMax" type="number" inputmode="numeric" min="0" placeholder="Máx" aria-label="Preço máximo" value="'+(state.max===null?'':state.max)+'"></div><button type="button" class="fbtn" id="pGo">Filtrar</button><div class="pchips">'+chips+'</div></div>'
+    + (brands.length ? '<div class="fg"><h3>Marcas <small>('+brands.length+')</small></h3><div class="blist">'+bh+'</div></div>' : '')
+    + '<button type="button" class="fclear" id="fClear"'+(filterCount()?'':' hidden')+'>Limpar filtros</button>';
+  var n = filterCount(), fc = $('fCount'); fc.hidden = !n; fc.textContent = n;
 }
+function numOrNull(v){ v = parseFloat(String(v).replace(',','.')); return isFinite(v) && v>=0 ? v : null; }
+function syncFilterUI(){
+  var n = filterCount(), fc = $('fCount'); fc.hidden = !n; fc.textContent = n;
+  var cl = $('fClear'); if(cl) cl.hidden = !n;
+  document.querySelectorAll('#filters .pchip').forEach(function(c){ c.setAttribute('aria-pressed',String(state.min===null && state.max===parseFloat(c.dataset.max))); });
+}
+function applyPrice(){
+  state.min = numOrNull($('pMin').value); state.max = numOrNull($('pMax').value);
+  syncFilterUI(); renderGrid();
+}
+$('filters').addEventListener('change',function(e){
+  var t = e.target;
+  if(t.dataset.gen){ var i = state.gens.indexOf(t.dataset.gen); if(t.checked && i<0) state.gens.push(t.dataset.gen); if(!t.checked && i>-1) state.gens.splice(i,1); }
+  else if(t.dataset.brand){ var j = state.brands.indexOf(t.dataset.brand); if(t.checked && j<0) state.brands.push(t.dataset.brand); if(!t.checked && j>-1) state.brands.splice(j,1); }
+  else if(t.id==='pMin' || t.id==='pMax'){ applyPrice(); return; }
+  else return;
+  renderFilters(); renderGrid();
+});
+$('filters').addEventListener('click',function(e){
+  var t = e.target.closest('button'); if(!t) return;
+  if(t.id==='pGo'){ applyPrice(); return; }
+  if(t.id==='fClear'){ resetFilters(); renderFilters(); renderGrid(); return; }
+  if(t.dataset.max){ var v = parseFloat(t.dataset.max); var on = state.max===v && state.min===null; state.min = null; state.max = on ? null : v; $('pMin').value = ''; $('pMax').value = state.max===null ? '' : state.max; syncFilterUI(); renderGrid(); }
+});
+$('filters').addEventListener('keydown',function(e){ if(e.key==='Enter' && (e.target.id==='pMin'||e.target.id==='pMax')){ e.preventDefault(); applyPrice(); } });
+$('fToggle').addEventListener('click',function(){
+  var open = !$('filters').classList.contains('open');
+  $('filters').classList.toggle('open',open); $('fToggle').setAttribute('aria-expanded',String(open));
+});
 function renderGrid(){
   var list = filtered();
   var units = list.reduce(function(s,p){return s+p.q;},0);
-  $('count').textContent = list.length ? list.length+' produtos · '+units+' unidades disponíveis'+(state.q.trim()?' (busca em todo o catálogo)':'') : '';
+  $('count').textContent = list.length ? list.length+' produtos encontrados · '+units+' unidades disponíveis' : '';
+  var tv = TABS.filter(function(c){return c.id===state.view;})[0];
+  $('crumbCat').textContent = state.q.trim() ? 'Busca: '+state.q.trim() : (state.view==='todos' ? 'Todos os produtos' : tv.label);
   var g = $('grid');
   if(!list.length){
     g.className = 'empty';
-    g.innerHTML = '<span>Nenhum produto encontrado.</span><a class="btn" href="#encomendar">Pedir um item que não está aqui</a>';
+    g.innerHTML = '<span>Nenhum produto encontrado.</span>'+(filterCount()?'<button type="button" class="btn ghost" id="emptyClear">Limpar filtros</button>':'')+'<a class="btn" href="#encomendar">Pedir um item que não está aqui</a>';
     return;
   }
   g.className = 'grid';
   g.innerHTML = list.map(cardHTML).join('');
 }
-$('q').addEventListener('input',function(e){ state.q = e.target.value; renderGrid(); });
+$('q').addEventListener('input',function(e){ state.q = e.target.value; renderFilters(); renderGrid(); });
+$('sbar').addEventListener('submit',function(e){ e.preventDefault(); $('q').blur(); });
+$('grid').addEventListener('click',function(e){ if(e.target.id==='emptyClear'){ resetFilters(); renderFilters(); renderGrid(); } });
 $('sort').addEventListener('change',function(e){ state.sort = e.target.value; renderGrid(); });
-$('chips').addEventListener('click',function(e){
-  var t = e.target.closest('.chip'); if(!t) return;
-  state.gen = t.dataset.gen;
-  document.querySelectorAll('#chips .chip').forEach(function(c){ c.setAttribute('aria-pressed',String(c.dataset.gen===state.gen)); });
-  renderGrid();
-});
 $('grid').addEventListener('click',function(e){
   var t = e.target.closest('button[data-act]'); if(!t) return;
   if(t.dataset.act==='add' && !hasContact()){ askContact(t.dataset.id); return; }
@@ -636,8 +749,8 @@ load();
 $('footWa').innerHTML = WHATSAPP ? 'WhatsApp: <b>'+fmtPhone(WHATSAPP)+'</b>' : '';
 renderTiles(); renderRequest(); renderCartBar();
 var h = location.hash.replace('#','');
-if(CATS.some(function(c){return c.id===h;})) state.view = h;
-renderTabs(); renderChips(); renderGrid();
+if(TABS.some(function(c){return c.id===h;})) state.view = h;
+renderTabs(); renderFilters(); renderGrid();
 </script>
 
 </body>
