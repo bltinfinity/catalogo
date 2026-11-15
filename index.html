@@ -302,12 +302,10 @@ footer small{display:block;width:100%;color:#e5c5c0;font-size:13px}
 .top .catline{grid-column:1 / -1;grid-row:3;margin:2px 0 0;text-align:center;font-size:clamp(12px,3.4vw,15px);font-weight:700;letter-spacing:.1em;white-space:nowrap;text-transform:uppercase;color:#6a2132}
 .top.compact .catline{display:none}
 .catline i{font-style:normal;color:#e54d39;margin-inline:.3em}
-.wband{align-self:stretch;width:100vw;margin-left:calc(50% - 50vw);height:10px;background:#fff;margin-top:6px}
+.wband{align-self:stretch;width:100vw;margin-left:calc(50% - 50vw);height:2px;background:#fff;margin-top:6px}
 .shiprow{justify-content:flex-start;gap:14px;margin-top:0}
-.hcart2{position:relative;flex:none;width:48px;height:48px;border-radius:999px;border:1.5px solid rgba(255,255,255,.55);background:transparent;color:#fff;display:inline-flex;align-items:center;justify-content:center;padding:0}
-.hcart2:hover{background:rgba(255,255,255,.14)}
-.hcart2 svg{width:26px;height:26px;display:block}
-.hcart2 b{position:absolute;top:-5px;right:-5px;background:var(--accent);color:var(--on-accent);border-radius:999px;min-width:19px;height:19px;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;padding:0 5px}
+.shipico{flex:none;display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;color:#ffb3a6}
+.shipico svg{width:30px;height:30px;display:block}
 .csub{margin:6px 0 0;color:var(--muted);font-size:clamp(15px,2.6vw,17px);max-width:60ch}
 .sbar input::placeholder{color:var(--muted)}
 .chead select{flex:none}
@@ -340,7 +338,7 @@ footer .motto .inf{font-size:1.5em;line-height:1;vertical-align:-.12em;margin-le
       </div>
       <div class="wband" aria-hidden="true"></div>
       <div class="shiprow" id="shiprow">
-        <button class="hcart2" id="hdrCart2" type="button" aria-label="Abrir meu pedido"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.6 12.2a1.5 1.5 0 0 0 1.5 1.2h8.6a1.5 1.5 0 0 0 1.5-1.1L21 8H6.1"/></svg><b id="hdrCount2" hidden>0</b></button>
+        <span class="shipico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6.5h11v9.5H2z"/><path d="M13 9.5h4.2l3.3 3.3V16H13z"/><circle cx="6.5" cy="17.5" r="1.8"/><circle cx="16.5" cy="17.5" r="1.8"/></svg></span>
         <p class="hship2">Enviamos para todo o Brasil</p>
       </div>
     </div>
@@ -651,12 +649,9 @@ $('idForm').addEventListener('submit',function(e){
 function renderCartBar(){
   var n = cartCount();
   $('hdrCount').textContent = n;
-  $('hdrCount2').textContent = n; $('hdrCount2').hidden = n===0;
-  $('hdrCart2').setAttribute('aria-label','Abrir meu pedido ('+n+(n===1?' item':' itens')+')');
   $('hdrCart').setAttribute('aria-label','Abrir meu pedido ('+n+(n===1?' item':' itens')+')');
 }
 $('hdrCart').addEventListener('click',function(){ openSheet(); });
-$('hdrCart2').addEventListener('click',function(){ openSheet(); });
 function openSheet(){ $('overlay').hidden=false; document.body.style.overflow='hidden'; renderSheet(); }
 function closeSheet(){ $('overlay').hidden=true; document.body.style.overflow=''; }
 $('overlay').addEventListener('click',function(e){ if(e.target.id==='overlay') closeSheet(); });
