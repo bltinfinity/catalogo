@@ -335,7 +335,7 @@ footer .frule{order:3;display:block;width:100%;max-width:520px;height:1px;backgr
     <div class="in">
       <span class="eyebrow">BLT Infinity - Produtos importados</span>
       <h1>Uma infinidade de produtos ao seu alcance.<span class="sr"> BLT Infinity: loja de produtos importados. Enviamos para todo o Brasil.</span></h1>
-      <p class="sub">Perfumes, cosméticos e produtos especiais que encantam.</p>
+      <p class="sub">Perfumes, Cosméticos e muito mais!<br><b>Descubra! Escolha! Encante-se!</b></p>
       <p class="sub">Explore nosso catálogo, escolha seus favoritos e faça seu pedido diretamente pelo WhatsApp. É simples e prático!</p>
       <div class="cta">
         <a class="btn accent" href="#catalogo">Explorar catálogo</a>
@@ -427,7 +427,18 @@ footer .frule{order:3;display:block;width:100%;max-width:520px;height:1px;backgr
 
 <script>
 /* ===== Configuração da loja ===== */
-var WHATSAPP = "5585986806101"; // somente números com DDI e DDD
+var WA_LIST = ["5588997689271","5585986806101"]; // números das sócias (DDI+DDD); os pedidos alternam entre eles
+var WHATSAPP = WA_LIST[0];
+var waPick = {msg:null,num:null};
+function nextWa(msg){
+  if(waPick.msg===msg && waPick.num) return waPick.num;
+  var last = null;
+  try{ var v = localStorage.getItem('blt_wa'); if(v==='0'||v==='1') last = parseInt(v,10); }catch(e){}
+  var idx = last===null ? Math.floor(Math.random()*WA_LIST.length) : (last+1)%WA_LIST.length;
+  try{ localStorage.setItem('blt_wa',String(idx)); }catch(e){}
+  waPick = {msg:msg,num:WA_LIST[idx]};
+  return waPick.num;
+}
 var INSTAGRAM = "bltinfinity";
 
 /* ===== Dados (fotografia do estoque disponível) ===== */
@@ -673,7 +684,7 @@ function contactFields(pfx){
 function sendButtons(pfx,waLabel){
   var wa = WHATSAPP ? '<a class="btn wa block" id="'+pfx+'wa" href="#" target="_blank" rel="noopener">'+waLabel+'</a>' : '';
   return '<div class="send">'+wa+'<div id="'+pfx+'status" aria-live="polite"></div>'
-    + (WHATSAPP ? '<p class="note">WhatsApp da loja: <b>'+fmtPhone(WHATSAPP)+'</b>. Se o botão der erro, envie o pedido direto para esse número.</p>' : '') + '</div>';
+    + (WHATSAPP ? '<p class="note">WhatsApp da loja: <b>'+WA_LIST.map(fmtPhone).join('</b> ou <b>')+'</b>. Se o botão der erro, envie o pedido direto para um desses números.</p>' : '') + '</div>';
 }
 function readContact(pfx){
   contact.name = $(pfx+'name').value.trim();
@@ -724,13 +735,14 @@ function wireSend(pfx,getMsg){
   wa.addEventListener('click',function(e){
     if(!validate(pfx)){ e.preventDefault(); return; }
     var msg = getMsg();
-    wa.href = 'https://wa.me/'+WHATSAPP+'?text='+encodeURIComponent(msg);
+    var num = nextWa(msg);
+    wa.href = 'https://wa.me/'+num+'?text='+encodeURIComponent(msg);
     copyText(msg).then(function(ok){
       st.innerHTML = '<div class="status"><b>Pedido pronto.</b> O WhatsApp deve abrir com a sua mensagem. Toque em enviar lá para concluir.<br><br>'
-        + '<b>Se o WhatsApp não abrir:</b> abra o WhatsApp, procure o número <b>'+fmtPhone(WHATSAPP)+'</b> e '+(ok?'cole a mensagem (ela já foi copiada).':'envie a mensagem abaixo.')
+        + '<b>Se o WhatsApp não abrir:</b> abra o WhatsApp, procure o número <b>'+fmtPhone(num)+'</b> e '+(ok?'cole a mensagem (ela já foi copiada).':'envie a mensagem abaixo.')
         + '<br><button type="button" class="btn ghost" id="'+pfx+'cpnum" style="margin-top:10px;padding:8px 12px">Copiar número</button></div>'
         + (ok ? '' : '<div class="field"><label for="'+pfx+'manual">Mensagem do pedido</label><textarea id="'+pfx+'manual" rows="6" readonly>'+esc(msg)+'</textarea></div>');
-      var cn = $(pfx+'cpnum'); if(cn) cn.addEventListener('click',function(){ copyText(String(WHATSAPP)).then(function(k){ cn.textContent = k ? 'Número copiado' : 'Copie: '+fmtPhone(WHATSAPP); }); });
+      var cn = $(pfx+'cpnum'); if(cn) cn.addEventListener('click',function(){ copyText(String(num)).then(function(k){ cn.textContent = k ? 'Número copiado' : 'Copie: '+fmtPhone(num); }); });
     });
   });
 }
