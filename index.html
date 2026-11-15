@@ -282,6 +282,20 @@ footer small{display:block;width:100%;color:#e5c5c0;font-size:13px}
 .line .sub{font-weight:700;font-variant-numeric:tabular-nums;text-align:right}
 .line .step{grid-column:1 / -1;max-width:150px}
 .total{display:flex;justify-content:space-between;font-family:var(--font-display);font-weight:800;font-size:22px;font-variant-numeric:tabular-nums}
+/* ficha do produto */
+.card button.ph{padding:0;width:100%;cursor:pointer;font:inherit;color:inherit}
+.card h3 .tl{background:none;border:0;padding:0;margin:0;font:inherit;color:inherit;text-align:left;cursor:pointer}
+.card .more{background:none;border:0;padding:0;align-self:flex-start;font-size:13px;font-weight:600;color:var(--accent-ink);cursor:pointer}
+.pdimg{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;align-items:center;justify-content:center;aspect-ratio:1/1;max-height:42vh;flex:0 0 auto}
+.pdimg img{width:100%;height:100%;object-fit:contain}
+.pdinfo{display:flex;flex-direction:column;gap:12px}
+.pdinfo h3{font-family:var(--font-body);font-size:19px;font-weight:600;line-height:1.3;overflow-wrap:anywhere}
+.pdinfo p{margin:0;line-height:1.5}
+.feats{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.feats li{background:var(--tint);color:var(--accent-ink);font-size:13px;font-weight:600;padding:5px 11px;border-radius:999px}
+.pdrow{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.pdrow .price{font-family:var(--font-display);font-weight:800;font-size:26px;font-variant-numeric:tabular-nums}
+.pdrow .stock{font-size:13px;color:var(--muted)}
 @media (min-width:700px){.overlay{align-items:center}.sheet{border-radius:22px;max-height:88%}}
 </style>
 
@@ -319,7 +333,7 @@ footer small{display:block;width:100%;color:#e5c5c0;font-size:13px}
         <div><h2>Catálogo de produtos</h2><p class="count" id="count" aria-live="polite"></p></div>
         <select id="sort" aria-label="Ordenar"><option value="rel">Relevância</option><option value="az">Ordem A–Z</option><option value="low">Menor preço</option><option value="high">Maior preço</option></select>
       </div>
-      <form class="sbar" id="sbar" role="search"><input id="q" type="search" placeholder="Buscar perfumes, marcas..." aria-label="Buscar produto"><button type="submit" aria-label="Buscar"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></button></form>
+      <form class="sbar" id="sbar" role="search"><input id="q" type="search" placeholder="Buscar perfumes, marcas, notas..." aria-label="Buscar produto"><button type="submit" aria-label="Buscar"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></button></form>
       <div class="tabs" id="tabs" role="tablist" aria-label="Categorias"></div>
       <button class="ftoggle" id="fToggle" type="button" aria-expanded="false" aria-controls="filters">Filtros <b id="fCount" hidden></b></button>
       <div class="shop">
@@ -367,6 +381,10 @@ footer small{display:block;width:100%;color:#e5c5c0;font-size:13px}
   <div class="sheet" id="sheet"></div>
 </div>
 
+<div class="overlay" id="pdOverlay" hidden role="dialog" aria-modal="true" aria-labelledby="pdTitle">
+  <div class="sheet" id="pdSheet"></div>
+</div>
+
 <div class="overlay" id="idOverlay" hidden role="dialog" aria-modal="true" aria-labelledby="idTitle">
   <form class="sheet" id="idForm" novalidate>
     <header><h2 id="idTitle">Antes de começar</h2><button class="x" type="button" id="idClose" aria-label="Fechar">✕</button></header>
@@ -392,6 +410,8 @@ var CATS = [
   {id:'diversos',label:'Diversos'}
 ];
 var CAT_LABEL = {perfumes:'Perfume',cosmeticos:'Cosmético',diversos:'Diverso'};
+/* Descrição (d) e características (f) de cada produto, pelo id. Produto novo: acrescente aqui. */
+var DESC = {"p001":{"d":"Creme facial com colágeno e retinol e aplicador gua sha embutido para massagear e modelar o rosto.","f":"Firmeza e elasticidade • Textura refinada • Aplicador massageador"},"p002":{"d":"Sérum com ácido azelaico que ajuda a uniformizar o tom e reduzir a aparência de poros e oleosidade.","f":"Uniformiza o tom • Controle de oleosidade • Pele mais lisa"},"p003":{"d":"Bálsamo labial clássico sabor cereja que hidrata e protege lábios ressecados.","f":"Alívio imediato • Hidratação prolongada • Sabor cereja"},"p004":{"d":"Creme iluminador que atua nas manchas e na aparência dos poros, deixando a pele mais uniforme.","f":"Atenua manchas • Minimiza poros • Mais luminosidade"},"p005":{"d":"Sérum concentrado com retinal, forma potente da vitamina A, para renovação e firmeza da pele.","f":"Ação antissinais • Renovação da pele • Uso noturno"},"p006":{"d":"Sérum com retinol que ajuda a firmar a pele e suavizar linhas finas.","f":"Efeito firmador • Suaviza linhas • Uso noturno"},"p007":{"d":"Ampola calmante com extrato de centella asiática, ideal para peles sensíveis.","f":"Acalma e hidrata • Pele sensível • Textura leve"},"p008":{"d":"Creme reparador que acalma a pele irritada e fortalece a barreira cutânea.","f":"Acalma vermelhidão • Repara a barreira • Hidratação leve"},"p009":{"d":"Sérum labial com PDRN que hidrata, suaviza e dá aspecto mais volumoso aos lábios.","f":"Hidratação intensa • Lábios macios • Efeito revitalizante"},"p010":{"d":"Máscara capilar japonesa de tratamento intensivo que repara fios danificados e devolve maciez e brilho.","f":"Reparação intensa • Maciez • Brilho"},"p011":{"d":"Shampoo japonês com essência de tratamento que limpa suavemente enquanto nutre os fios.","f":"Limpeza suave • Nutrição • Fios macios"},"p012":{"d":"Óleo capilar leve que controla o frizz e dá brilho sem pesar.","f":"Anti-frizz • Brilho • Não pesa"},"p013":{"d":"Máscara capilar com colágeno que hidrata profundamente e recupera fios secos e danificados.","f":"Hidratação profunda • Reconstrução • Maciez"},"p014":{"d":"Óleo capilar com colágeno que nutre, sela as pontas e controla o frizz.","f":"Nutrição • Pontas seladas • Anti-frizz"},"p015":{"d":"Leave-in em spray que repara, protege e facilita o pentear.","f":"Sem enxágue • Desembaraça • Protege os fios"},"p016":{"d":"Máscara capilar com própolis que nutre fios danificados e devolve o brilho.","f":"Nutrição • Reparação • Brilho"},"p017":{"d":"Máscara capilar fortalecedora que cuida do couro cabeludo e dos fios.","f":"Fortalece os fios • Cuida do couro cabeludo • Unissex"},"p018":{"d":"Sérum para cílios com exossomos que nutre e fortalece os fios.","f":"Fortalece os cílios • Aplicação fácil • Uso diário"},"p019":{"d":"Creme facial com vitamina C que ilumina e uniformiza o tom da pele.","f":"Luminosidade • Uniformiza o tom • Hidratação"},"p020":{"d":"Máscara facial com colágeno para efeito de firmeza e hidratação imediata.","f":"Efeito lifting • Hidratação • Uso único"},"p021":{"d":"Máscara noturna com colágeno que age durante o sono para uma pele firme e hidratada ao acordar.","f":"Age à noite • Firmeza • Pele hidratada"},"p022":{"d":"Sérum com microespículas e exossomos que estimula a renovação e refina a textura da pele.","f":"Renovação da pele • Refina poros • Uso gradual"},"p023":{"d":"Sérum com PDRN e peptídeos que hidrata, revitaliza e dá viço à pele.","f":"Pele com glow • Hidratação • Revitalizante"},"p024":{"d":"Discos tonificantes com vitamina C que limpam, iluminam e preparam a pele.","f":"Ilumina • Uniformiza • Prático"},"p025":{"d":"Discos esfoliantes suaves que controlam a oleosidade e minimizam a aparência dos poros.","f":"Esfoliação suave • Controle de oleosidade • Poros menos visíveis"},"p026":{"d":"Loção corporal perfumada com a fragrância icônica Angel: patchouli, caramelo e baunilha.","f":"Hidrata o corpo • Perfuma a pele • Prolonga o perfume"},"p027":{"d":"Creme para a área dos olhos com retinol que ajuda a suavizar linhas e dar firmeza.","f":"Área dos olhos • Suaviza linhas • Firmeza"},"p028":{"d":"Máscara facial com NAD+ que revitaliza e devolve energia à pele.","f":"Revitalizante • Hidratação • Uso único"},"p029":{"d":"Essência com NAD+ para efeito lifting e pele mais firme e viçosa.","f":"Efeito lifting • Firmeza • Viço"},"p030":{"d":"Máscara facial com colágeno e PDRN para firmeza e revitalização.","f":"Firmeza • Revitaliza • Uso único"},"p031":{"d":"Máscara facial com ácido hialurônico e centella para hidratar e acalmar.","f":"Hidratação • Acalma • Uso único"},"p032":{"d":"Máscara facial com peptídeos e arroz que ilumina e suaviza a pele.","f":"Luminosidade • Pele macia • Uso único"},"p033":{"d":"Máscara facial com vitaminas e niacinamida que uniformiza o tom e ilumina.","f":"Uniformiza • Ilumina • Uso único"},"p034":{"d":"Protetor solar facial FPS 50+ com PDRN que protege e cuida da pele ao mesmo tempo.","f":"FPS 50+ • Toque leve • Uso diário"},"p035":{"d":"Adesivos para a área dos olhos que hidratam e suavizam o aspecto de olheiras e cansaço.","f":"Área dos olhos • Efeito descansado • Aplicação rápida"},"p036":{"d":"Máscara de hidratação intensiva para cabelos secos e danificados, em tamanho profissional.","f":"Hidratação intensa • Maciez • 500 ml"},"p037":{"d":"Condicionador japonês com óleo de camélia que hidrata e repara os fios.","f":"Óleo de camélia • Hidratação • Reparação"},"p038":{"d":"Máscara japonesa de reparação rápida que recupera fios danificados em poucos minutos.","f":"Ação rápida • Reparação intensa • Brilho"},"p039":{"d":"Mala de viagem grande no padrão de bagagem despachada de 23 kg.","f":"Bagagem despachada • Cor cinza • Viagens longas"},"p040":{"d":"Mala de viagem grande no padrão de bagagem despachada de 23 kg.","f":"Bagagem despachada • Cor preta • Viagens longas"},"p041":{"d":"Receptor de TV via satélite (FTA) com Wi-Fi integrado.","f":"Wi-Fi integrado • Sinal FTA • Fácil instalação"},"p042":{"d":"Bolsa feminina Ana Hickmann em off-white, elegante e versátil.","f":"Cor off-white • Uso diário • Combina com tudo"},"p043":{"d":"Fones sem fio Apple com cancelamento ativo de ruído e conexão instantânea com o iPhone.","f":"Cancelamento de ruído • Estojo de carregamento • Pareamento rápido"},"p044":{"d":"Kit com dois microfones de lapela sem fio para gravar vídeos e entrevistas no celular.","f":"2 microfones sem fio • Áudio limpo • Ideal para criadores de conteúdo"},"p045":{"d":"Bolsa feminina David Jones em cinza, moderna e prática.","f":"Design moderno • Cor cinza • Uso diário"},"p046":{"d":"Relógio de corrida Garmin com tela AMOLED, GPS e música no pulso.","f":"Tela AMOLED 43 mm • GPS e métricas de treino • Música offline"},"p047":{"d":"Relógio de corrida Garmin com tela AMOLED, GPS e música no pulso.","f":"Tela AMOLED 43 mm • GPS e métricas de treino • Música offline"},"p048":{"d":"Bolsa Michael Kors na cor vinho, sofisticada e marcante.","f":"Marca premium • Cor vinho • Elegante"},"p049":{"d":"Body splash da linha Club de Nuit Iconic, fresco e cítrico, para perfumar o dia de forma leve.","f":"Fresco e cítrico • Uso diário • Leve"},"p050":{"d":"Amadeirado aromático fresco com toranja, menta e gengibre sobre fundo de incenso e sândalo.","f":"Fresco e elegante • Dia e noite • Ótima fixação"},"p051":{"d":"Um dos árabes mais famosos: abacaxi, limão e cassis com fundo defumado de bétula e âmbar.","f":"Frutado defumado • Marcante • Ótima projeção"},"p052":{"d":"Club de Nuit Milestone: fresco, com notas marinhas, frutas vermelhas e violeta.","f":"Fresco e frutado • Uso diário • Leve"},"p053":{"d":"Club de Nuit Untold: açafrão, jasmim e âmbar adocicado.","f":"Doce e quente • Uso diário • Leve"},"p054":{"d":"Floral frutado com laranja, pêssego e rosa sobre fundo de baunilha e patchouli.","f":"Floral frutado • Elegante • Noite e ocasiões especiais"},"p055":{"d":"Fresco e luminoso: notas marinhas, bergamota e frutas vermelhas com violeta, sândalo e almíscar.","f":"Fresco aquático • Unissex • Ideal para o calor"},"p056":{"d":"Fresco frutado com maçã, bergamota e chá verde, coração de cassis e rosa e fundo amadeirado.","f":"Fresco frutado • Versátil • Uso diário"},"p057":{"d":"Perfume feminino da Boucheron, floral e sofisticado, em frasco inspirado em joia.","f":"Floral elegante • Grife francesa • Ocasiões especiais"},"p058":{"d":"Perfume feminino floral e envolvente, assinado por Christian Siriano.","f":"Floral • Delicado • Uso diário"},"p059":{"d":"Fragrância Calvin Klein moderna e versátil.","f":"Moderno • Versátil • Uso diário"},"p060":{"d":"Clássico fresco com limão siciliano, maçã e bambu, jasmim e fundo de cedro e almíscar.","f":"Fresco cítrico • Ideal para o calor • Clássico"},"p061":{"d":"Floral frutado com pêssego, bergamota e pimenta-rosa, flor de laranjeira e jasmim e fundo de praliné e sândalo.","f":"Doce e fresco • Elegante • Dia e noite"},"p062":{"d":"Gourmand frutado com cereja negra e pimenta-rosa, rosa e peônia e fundo de caramelo e baunilha.","f":"Doce e marcante • Feminino • Ocasiões especiais"},"p063":{"d":"Especiado gourmand com lavanda, ameixa e pimenta-rosa, coração de cacau e noz-moscada e fundo de baunilha bourbon e âmbar.","f":"Quente e adocicado • Noite e frio • Ótima fixação"},"p064":{"d":"Oriental amadeirado com açafrão, pimenta-rosa e toranja, tabaco e baunilha no coração e fundo de incenso e âmbar.","f":"Intenso • Noite • Alta fixação"},"p065":{"d":"Floral branco com romã e aldeídos, buquê de tuberosa, jasmim e rosa e fundo de baunilha e almíscar.","f":"Floral sofisticado • Dia e noite • Feminino"},"p066":{"d":"Kit de miniaturas da linha Yara, perfumes doces e cremosos — ótimo para presentear ou levar na bolsa.","f":"Tamanho de bolsa • Ótimo presente • Conheça a linha Yara"},"p067":{"d":"Amadeirado aromático com lavanda, sálvia e noz-moscada sobre fundo quente de cacau e fava tonka.","f":"Sofisticado • Noite e frio • Marcante"},"p068":{"d":"Oriental cremoso com especiarias e laranja, coração de coco e ylang-ylang e fundo de sândalo e almíscar.","f":"Cremoso • Unissex • Envolvente"},"p069":{"d":"Floral âmbar adocicado com lavanda e bergamota, flor de laranjeira e jasmim e fundo de baunilha e âmbar.","f":"Doce e floral • Versátil • Boa fixação"},"p070":{"d":"Gourmand cremoso com morango, flores brancas e fundo de caramelo, baunilha e âmbar — mais intenso que o Yara original.","f":"Doce e intenso • Noite e frio • Longa duração"},"p071":{"d":"Floral adocicado com jasmim e pêssego, coração de caramelo e âmbar e fundo de patchouli e sândalo.","f":"Doce e elegante • Uso diário • Feminino"},"p072":{"d":"Ícone gourmand: patchouli, caramelo, baunilha e chocolate com toque frutado.","f":"Marcante • Noite • Clássico"},"p073":{"d":"Floral amadeirado com abertura frutada, coração de jasmim e cedro e fundo de âmbar gris e musgo de carvalho.","f":"Unissex • Elegante • Outono e inverno"},"p074":{"d":"Versão tester do clássico Tommy: fresco, com lavanda, menta e maçã — mesmo perfume, embalagem simples.","f":"Fresco • Uso diário • Ótimo custo-benefício"},"p075":{"d":"Clássico feminino fresco com camélia, cassis e notas cítricas.","f":"Fresco floral • Dia a dia • Clássico"},"p076":{"d":"Clássico masculino fresco e aromático, ideal para o dia a dia.","f":"Fresco • Versátil • Clássico"},"p077":{"d":"Body mist com âmbar, baunilha e cereja negra, doce e aconchegante.","f":"Body mist • Doce e quente • Perfume leve"}};
 var byId = {};
 PRODUCTS.forEach(function(p){ byId[p.id]=p; });
 
@@ -443,7 +463,7 @@ document.addEventListener('click',function(e){
 function filtered(){
   var q = norm(state.q.trim());
   var list = PRODUCTS.filter(function(p){
-    if(q){ if(norm(p.b+' '+p.n).indexOf(q)===-1) return false; }
+    if(q){ var dd = DESC[p.id]||{}; if(norm(p.b+' '+p.n+' '+(dd.d||'')+' '+(dd.f||'')).indexOf(q)===-1) return false; }
     else if(state.view!=='todos' && p.c!==state.view) return false;
     if(state.gens.length && state.gens.indexOf(p.g)===-1) return false;
     if(state.min!==null && p.p<state.min) return false;
@@ -472,9 +492,9 @@ function cardHTML(p){
   var ctl = q
     ? '<div class="step" role="group" aria-label="Quantidade"><button type="button" data-act="dec" data-id="'+p.id+'" aria-label="Diminuir">−</button><b>'+q+'</b><button type="button" data-act="inc" data-id="'+p.id+'" aria-label="Aumentar"'+(q>=p.q?' disabled':'')+'>+</button></div>'
     : '<button type="button" class="btn" data-act="add" data-id="'+p.id+'">Adicionar</button>';
-  return '<article class="card"><div class="ph'+(photo?'':' nophoto')+'">'+ph+last+'</div><div class="body">'
+  return '<article class="card"><button type="button" class="ph'+(photo?'':' nophoto')+'" data-act="info" data-id="'+p.id+'" aria-label="Ver detalhes: '+esc(p.n)+'">'+ph+last+'</button><div class="body">'
     + (p.b?'<div class="brand">'+esc(p.b)+'</div>':'')
-    + '<h3>'+esc(p.n)+'</h3><div class="price">'+brl(p.p)+'</div>'+ctl+'</div></article>';
+    + '<h3><button type="button" class="tl" data-act="info" data-id="'+p.id+'">'+esc(p.n)+'</button></h3>'+(DESC[p.id]?'<button type="button" class="more" data-act="info" data-id="'+p.id+'">Ver detalhes ›</button>':'')+'<div class="price">'+brl(p.p)+'</div>'+ctl+'</div></article>';
 }
 function scopeList(){ return state.q.trim() ? PRODUCTS : inCat(state.view); }
 function filterCount(){ return state.gens.length + state.brands.length + (state.min!==null||state.max!==null ? 1 : 0); }
@@ -549,6 +569,7 @@ $('grid').addEventListener('click',function(e){ if(e.target.id==='emptyClear'){ 
 $('sort').addEventListener('change',function(e){ state.sort = e.target.value; renderGrid(); });
 $('grid').addEventListener('click',function(e){
   var t = e.target.closest('button[data-act]'); if(!t) return;
+  if(t.dataset.act==='info'){ openInfo(t.dataset.id); return; }
   if(t.dataset.act==='add' && !hasContact()){ askContact(t.dataset.id); return; }
   change(t.dataset.id,t.dataset.act);
 });
@@ -561,6 +582,7 @@ function change(id,act){
   if(q<=0) delete cart[id]; else cart[id]=q;
   save(); renderCartBar();
   if(!$('overlay').hidden) renderSheet();
+  if(!$('pdOverlay').hidden) renderInfo();
   updateCard(id);
 }
 function updateCard(id){
@@ -612,7 +634,7 @@ function closeSheet(){ $('overlay').hidden=true; document.body.style.overflow=''
 $('overlay').addEventListener('click',function(e){ if(e.target.id==='overlay') closeSheet(); });
 document.addEventListener('keydown',function(e){
   if(e.key!=='Escape') return;
-  if(!$('idOverlay').hidden) closeAsk(); else if(!$('overlay').hidden) closeSheet();
+  if(!$('idOverlay').hidden) closeAsk(); else if(!$('pdOverlay').hidden) closeInfo(); else if(!$('overlay').hidden) closeSheet();
 });
 
 function contactFields(pfx){
@@ -762,6 +784,34 @@ function requestMessage(){
   function fl(){ if(!row||!cb) return; var r=row.getBoundingClientRect(); cb.classList.toggle('float', r.bottom < 0); }
   window.addEventListener('scroll',fl,{passive:true}); window.addEventListener('resize',fl); fl();
 })();
+
+/* ===== Ficha do produto ===== */
+var infoId = null;
+function renderInfo(){
+  var p = byId[infoId]; if(!p) return;
+  var d = DESC[p.id]||{};
+  var q = cart[p.id]||0;
+  var src = p.f ? 'fotos/'+p.f+'.jpg' : (IMAGES[p.id] ? 'data:image/jpeg;base64,'+IMAGES[p.id] : '');
+  var img = src ? '<div class="pdimg"><img src="'+src+'" alt="'+esc((p.b?p.b+' ':'')+p.n)+'" onerror="this.parentNode.remove()"></div>' : '';
+  var feats = d.f ? '<ul class="feats">'+d.f.split(' • ').map(function(x){return '<li>'+esc(x)+'</li>';}).join('')+'</ul>' : '';
+  var stock = p.q===1 ? 'Última unidade' : (p.q<=3 ? 'Restam '+p.q+' unidades' : p.q+' unidades disponíveis');
+  var ctl = q
+    ? '<div class="step" role="group" aria-label="Quantidade"><button type="button" data-act="dec" aria-label="Diminuir">−</button><b>'+q+' no pedido</b><button type="button" data-act="inc" aria-label="Aumentar"'+(q>=p.q?' disabled':'')+'>+</button></div>'
+    : '<button type="button" class="btn block" data-act="add">Adicionar ao pedido</button>';
+  $('pdSheet').innerHTML = '<header><h2 id="pdTitle">'+esc(p.b||CAT_LABEL[p.c])+'</h2><button class="x" type="button" data-act="close" aria-label="Fechar">✕</button></header>'
+    + img + '<div class="pdinfo"><h3>'+esc(p.n)+'</h3>'+(d.d?'<p>'+esc(d.d)+'</p>':'')+feats
+    + '<div class="pdrow"><span class="price">'+brl(p.p)+'</span><span class="stock">'+stock+'</span></div>'+ctl+'</div>';
+}
+function openInfo(id){ infoId = id; renderInfo(); $('pdOverlay').hidden = false; document.body.style.overflow = 'hidden'; var x = $('pdSheet').querySelector('[data-act="close"]'); if(x) x.focus(); }
+function closeInfo(){ $('pdOverlay').hidden = true; infoId = null; if($('overlay').hidden) document.body.style.overflow = ''; }
+$('pdOverlay').addEventListener('click',function(e){
+  if(e.target.id==='pdOverlay'){ closeInfo(); return; }
+  var t = e.target.closest('button'); if(!t || !infoId) return;
+  var act = t.dataset.act;
+  if(act==='close'){ closeInfo(); return; }
+  if(act==='add' && !hasContact()){ askContact(infoId); return; }
+  if(act==='add'||act==='inc'||act==='dec') change(infoId,act);
+});
 
 /* ===== Início ===== */
 load();
