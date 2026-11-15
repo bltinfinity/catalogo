@@ -643,9 +643,8 @@ function contactFields(pfx){
 }
 function sendButtons(pfx,waLabel){
   var wa = WHATSAPP ? '<a class="btn wa block" id="'+pfx+'wa" href="#" target="_blank" rel="noopener">'+waLabel+'</a>' : '';
-  var ig = '<a class="btn block'+(WHATSAPP?' ghost':'')+'" id="'+pfx+'ig" href="https://ig.me/m/'+INSTAGRAM+'" target="_blank" rel="noopener">Enviar pelo Instagram</a>';
-  return '<div class="send">'+wa+ig+'<button type="button" class="btn ghost block" id="'+pfx+'copy">Copiar pedido</button><div id="'+pfx+'status" aria-live="polite"></div>'
-    + (WHATSAPP ? '<p class="note">WhatsApp da loja: <b>'+fmtPhone(WHATSAPP)+'</b>. Se o botão der erro, copie o pedido e envie direto para esse número.</p>' : '') + '</div>';
+  return '<div class="send">'+wa+'<div id="'+pfx+'status" aria-live="polite"></div>'
+    + (WHATSAPP ? '<p class="note">WhatsApp da loja: <b>'+fmtPhone(WHATSAPP)+'</b>. Se o botão der erro, envie o pedido direto para esse número.</p>' : '') + '</div>';
 }
 function readContact(pfx){
   contact.name = $(pfx+'name').value.trim();
@@ -691,31 +690,18 @@ function orderMessage(){
   return m;
 }
 function wireSend(pfx,getMsg){
-  var wa = $(pfx+'wa'), ig = $(pfx+'ig'), cp = $(pfx+'copy'), st = $(pfx+'status');
-  function say(t){ st.innerHTML = '<div class="status">'+t+'</div>'; }
-  if(wa) wa.addEventListener('click',function(e){
+  var wa = $(pfx+'wa'), st = $(pfx+'status');
+  if(!wa) return;
+  wa.addEventListener('click',function(e){
     if(!validate(pfx)){ e.preventDefault(); return; }
-    wa.href = 'https://wa.me/'+WHATSAPP+'?text='+encodeURIComponent(getMsg());
-    copyText(getMsg()).then(function(ok){
-      st.innerHTML = '<div class="status"><b>'+(ok?'Pedido copiado.':'Pedido pronto.')+'</b> O WhatsApp deve abrir com a sua mensagem. Toque em enviar lá para concluir.<br><br>'
-        + '<b>Se o WhatsApp não abrir:</b> abra o WhatsApp, procure o número <b>'+fmtPhone(WHATSAPP)+'</b> e '+(ok?'cole a mensagem copiada.':'use o botão Copiar pedido e cole a mensagem.')
-        + '<br><button type="button" class="btn ghost" id="'+pfx+'cpnum" style="margin-top:10px;padding:8px 12px">Copiar número</button></div>';
-      var cn = $(pfx+'cpnum'); if(cn) cn.addEventListener('click',function(){ copyText(String(WHATSAPP)).then(function(k){ cn.textContent = k ? 'Número copiado' : 'Copie: '+fmtPhone(WHATSAPP); }); });
-    });
-  });
-  ig.addEventListener('click',function(e){
-    if(!validate(pfx)){ e.preventDefault(); return; }
-    copyText(getMsg()).then(function(ok){
-      say(ok ? 'Pedido copiado. Cole na conversa do Instagram e envie para concluir.' : 'Não consegui copiar sozinho. Use o botão Copiar pedido e cole na conversa.');
-    });
-  });
-  cp.addEventListener('click',function(){
-    if(!validate(pfx)) return;
     var msg = getMsg();
+    wa.href = 'https://wa.me/'+WHATSAPP+'?text='+encodeURIComponent(msg);
     copyText(msg).then(function(ok){
-      if(ok){ say('Pedido copiado. Cole na conversa e envie para a gente.'); return; }
-      st.innerHTML = '<div class="field"><label for="'+pfx+'manual">Copie o texto abaixo</label><textarea id="'+pfx+'manual" rows="6" readonly>'+esc(msg)+'</textarea></div>';
-      var ta=$(pfx+'manual'); ta.focus(); ta.select();
+      st.innerHTML = '<div class="status"><b>Pedido pronto.</b> O WhatsApp deve abrir com a sua mensagem. Toque em enviar lá para concluir.<br><br>'
+        + '<b>Se o WhatsApp não abrir:</b> abra o WhatsApp, procure o número <b>'+fmtPhone(WHATSAPP)+'</b> e '+(ok?'cole a mensagem (ela já foi copiada).':'envie a mensagem abaixo.')
+        + '<br><button type="button" class="btn ghost" id="'+pfx+'cpnum" style="margin-top:10px;padding:8px 12px">Copiar número</button></div>'
+        + (ok ? '' : '<div class="field"><label for="'+pfx+'manual">Mensagem do pedido</label><textarea id="'+pfx+'manual" rows="6" readonly>'+esc(msg)+'</textarea></div>');
+      var cn = $(pfx+'cpnum'); if(cn) cn.addEventListener('click',function(){ copyText(String(WHATSAPP)).then(function(k){ cn.textContent = k ? 'Número copiado' : 'Copie: '+fmtPhone(WHATSAPP); }); });
     });
   });
 }
