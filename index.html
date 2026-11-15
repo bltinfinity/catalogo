@@ -639,8 +639,7 @@ document.addEventListener('keydown',function(e){
 
 function contactFields(pfx){
   return '<div class="row2"><div class="field"><label for="'+pfx+'name">Seu nome *</label><input id="'+pfx+'name" autocomplete="name" value="'+esc(contact.name)+'"><div class="err" id="'+pfx+'name_e"></div></div>'
-   + '<div class="field"><label for="'+pfx+'phone">WhatsApp ou telefone *</label><input id="'+pfx+'phone" type="tel" autocomplete="tel" placeholder="(00) 00000-0000" value="'+esc(contact.phone)+'"><div class="err" id="'+pfx+'phone_e"></div></div></div>'
-   + '<div class="field"><label for="'+pfx+'insta">Seu Instagram (opcional)</label><input id="'+pfx+'insta" placeholder="@usuario" value="'+esc(contact.insta)+'"></div>';
+   + '<div class="field"><label for="'+pfx+'phone">WhatsApp ou telefone *</label><input id="'+pfx+'phone" type="tel" autocomplete="tel" placeholder="(00) 00000-0000" value="'+esc(contact.phone)+'"><div class="err" id="'+pfx+'phone_e"></div></div></div>';
 }
 function sendButtons(pfx,waLabel){
   var wa = WHATSAPP ? '<a class="btn wa block" id="'+pfx+'wa" href="#" target="_blank" rel="noopener">'+waLabel+'</a>' : '';
@@ -651,7 +650,6 @@ function sendButtons(pfx,waLabel){
 function readContact(pfx){
   contact.name = $(pfx+'name').value.trim();
   contact.phone = $(pfx+'phone').value.trim();
-  contact.insta = $(pfx+'insta').value.trim();
   var o = $(pfx+'obs'); if(o) contact.obs = o.value.trim();
   save();
 }
@@ -681,7 +679,6 @@ function copyText(t){
 }
 function contactLines(){
   var l = ['Nome: '+contact.name,'Contato: '+contact.phone];
-  if(contact.insta) l.push('Instagram: '+contact.insta);
   return l;
 }
 function orderMessage(){
@@ -731,7 +728,7 @@ function renderSheet(){
   }
   var keep = document.activeElement && document.activeElement.id;
   var vals = {};
-  ['s_name','s_phone','s_insta','s_obs'].forEach(function(i){ var el=$(i); if(el) vals[i]=el.value; });
+  ['s_name','s_phone','s_obs'].forEach(function(i){ var el=$(i); if(el) vals[i]=el.value; });
   var items = ids.map(function(id){
     var p=byId[id], q=cart[id];
     return '<li class="line"><div class="t"><b>'+esc(p.n)+'</b><small>'+esc(p.b)+(p.b?' · ':'')+brl(p.p)+' cada</small></div><div class="sub">'+brl(p.p*q)+'</div>'
@@ -740,6 +737,7 @@ function renderSheet(){
   $('sheet').innerHTML =
     '<header><h2 id="sheetTitle">Seu pedido</h2><button class="x" type="button" id="closeSheet" aria-label="Fechar">✕</button></header>'
     + '<ul class="lines">'+items+'</ul>'
+    + '<button type="button" class="btn ghost block" id="addMore" style="margin-top:10px">+ Adicionar mais produtos</button>'
     + '<div class="total"><span>Total</span><span>'+brl(cartTotal())+'</span></div>'
     + '<p class="note">Valores sem frete. A disponibilidade, o frete e a forma de pagamento são combinados na conversa.</p>'
     + contactFields('s_')
@@ -747,6 +745,7 @@ function renderSheet(){
     + sendButtons('s_','Finalizar pedido no WhatsApp');
   Object.keys(vals).forEach(function(i){ if($(i)) $(i).value = vals[i]; });
   $('closeSheet').onclick = closeSheet;
+  $('addMore').onclick = closeSheet;
   wireSend('s_',orderMessage);
   if(keep && $(keep)) $(keep).focus();
 }
