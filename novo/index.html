@@ -529,14 +529,6 @@ footer.foot2 .in{display:block;text-align:left}
 :root[data-theme="dark"] .hart figure img,:root[data-theme="dark"] .bn .deco figure img{filter:none}
 
 @media (max-width:480px){.bn{padding-right:48%}.bn .deco{width:46%;right:6px}.bn .deco figure{width:76%}.bn .deco .d2{width:66%}}
-
-/* categorias: fotos sem fundo branco, mesma cor do cartão, com mais brilho */
-.ctile{background:linear-gradient(160deg,var(--h1),var(--h2))}
-.ctile .cimg{background:transparent}
-.ctile .cimg img{mix-blend-mode:multiply;filter:brightness(1.09) saturate(1.18) contrast(1.06)}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .ctile .cimg{background:#fff}:root:not([data-theme="light"]) .ctile .cimg img{filter:none;mix-blend-mode:normal}}
-:root[data-theme="dark"] .ctile .cimg{background:#fff}
-:root[data-theme="dark"] .ctile .cimg img{filter:none;mix-blend-mode:normal}
 </style>
 
 <header class="top">
@@ -1099,7 +1091,7 @@ $('pdOverlay').addEventListener('click',function(e){
   };
   var t = $('ctiles'); if(!t) return;
   var html = CATS.map(function(ct){
-    var p = ct.id==='cosmeticos' ? pick('cosmeticos',/Azelaic/i) : best(ct.id), n = unitsIn(ct.id);
+    var p = best(ct.id), n = unitsIn(ct.id);
     return '<a class="ctile" href="#catalogo" data-cat="'+ct.id+'"><span class="cimg">'+(p?'<img src="'+photoOf(p)+'" alt="" loading="lazy" decoding="async">':ICO[ct.id])+'</span><span class="clabel"><span>'+ct.label+'<small>'+n+(n===1?' item':' itens')+'</small></span><i aria-hidden="true">›</i></span></a>';
   }).join('');
   html += '<a class="ctile" href="#encomendar"><span class="cimg">'+ICO.enc+'</span><span class="clabel"><span>Encomendas<small>Peça o seu</small></span><i aria-hidden="true">›</i></span></a>';
