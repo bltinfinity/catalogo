@@ -507,6 +507,14 @@ footer.foot2 .in{display:block;text-align:left}
 .fgrid h3{font-family:var(--font-body);font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);margin-bottom:8px}
 .fgrid ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px;font-size:15px}
 .fgrid a{color:var(--ink);font-weight:600;text-underline-offset:3px}
+.fsobre{padding-bottom:24px;border-top:1px solid var(--line);padding-top:6px}
+.fsobre summary{cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;font-family:var(--font-body);font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink)}
+.fsobre summary::-webkit-details-marker{display:none}
+.fsobre summary::after{content:"+";font-size:22px;font-weight:400;line-height:1;color:var(--btn-bg)}
+.fsobre details[open] summary::after{content:"\2212"}
+.fsobre summary:focus-visible{outline:2px solid var(--btn-bg);outline-offset:3px;border-radius:6px}
+.fsobre .stxt{max-width:62ch;display:flex;flex-direction:column;gap:12px;font-size:15px;line-height:1.6;color:var(--ink)}
+.fsobre .stxt p{margin:0}
 .fbar{background:var(--btn-bg);color:#fff;margin-top:18px}
 .fbar .in{display:flex!important;flex-wrap:wrap;gap:6px 24px;justify-content:center;text-align:center;align-items:center;padding-block:14px;font-size:13px}
 .fbar .motto{font-weight:600;letter-spacing:.03em;margin:0;white-space:normal}
@@ -631,7 +639,14 @@ footer.foot2 .in{display:block;text-align:left}
       <li><a class="nb" href="https://wa.me/5585986806101" target="_blank" rel="noopener">(85) 98680-6101</a></li>
     </ul></div>
     <div><h3>Siga-nos</h3><ul><li><a href="https://www.instagram.com/bltinfinity/" target="_blank" rel="noopener">@bltinfinity</a></li></ul></div>
-  </div></div>
+  </div>
+  <div class="in fsobre"><details><summary>Sobre a BLT Infinity</summary><div class="stxt">
+    <p>A BLT Infinity nasceu da parceria entre Taty &amp; Lu e de uma paixão em comum: descobrir novidades e compartilhar o que há de melhor no universo dos importados.</p>
+    <p>Criamos um espaço onde beleza, skincare, perfumes, moda, eletrônicos e tendências se encontram. Nossa proposta é trazer até você produtos selecionados, novidades do mercado e aqueles achadinhos que fazem toda a diferença.</p>
+    <p>Estamos sempre em busca de novidades pelo mundo, escolhendo cada produto com cuidado para oferecer uma experiência de compra especial, com qualidade, variedade e aquele toque de exclusividade.</p>
+    <p>Acreditamos que existem infinitas possibilidades de descobrir, experimentar e se encantar. E queremos fazer parte de cada uma dessas descobertas.</p>
+    <p><strong>Explore nosso catálogo e seja muito bem-vindo(a) à BLT Infinity!</strong></p>
+  </div></details></div></div>
   <div class="fbar"><div class="in"><p class="motto">Infinito por essência. Importado para você!</p></div></div>
 </footer>
 
