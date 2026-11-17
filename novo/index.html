@@ -25,7 +25,7 @@
 <style>html{color-scheme:light}body{margin:0}img{max-width:100%}</style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Allura&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,400;1,500&display=swap">
 <style>
 /* Layout: cabeçalho vinho fixo, banner de abertura com padrão geométrico árabe, três cartões de categoria
    sobrepostos ao banner, catálogo com abas, como comprar, encomenda e rodapé. Cor de marca = vinho da logo. */
@@ -365,8 +365,12 @@ h1,h2,h3{font-family:var(--font-serif);font-weight:500}
 .top.compact .strip{display:none}
 .top .in.hmain{display:grid!important;grid-template-columns:auto 1fr auto;grid-template-areas:"logo search icons";align-items:center;gap:10px 24px;padding-block:10px!important}
 .top .in.hmain>a.logolink{grid-area:logo;grid-column:auto;grid-row:auto;display:block}
-.top .logo{height:44px;width:auto;margin:0;display:block}
-@media (min-width:760px){.top .logo{height:58px}.top.compact .logo{height:46px}}
+.top .logo{height:56px;width:auto;margin:0;display:block}
+.top .in.hmain>a.logolink{display:flex;flex-direction:column;align-items:center;gap:2px;text-decoration:none}
+.ltag{font-family:var(--font-serif);font-style:italic;font-weight:400;font-size:10.5px;line-height:1.1;letter-spacing:0;color:var(--wine);white-space:nowrap;text-decoration:none;text-align:center;align-self:stretch}
+.top.compact .ltag{display:none}
+.top.compact .logo{height:44px}
+@media (min-width:760px){.top .logo{height:78px}.top.compact .logo{height:52px}.ltag{font-size:11.5px}}
 .top .hmain .sbar{grid-area:search;margin:0;max-width:560px;width:100%;justify-self:center}
 .hmain .sbar input{border:1.5px solid var(--line);border-right:0;border-radius:999px 0 0 999px;background:var(--surface);padding:11px 16px;font-size:15px}
 .hmain .sbar input:focus{border-color:var(--coral)}
@@ -404,7 +408,6 @@ h1,h2,h3{font-family:var(--font-serif);font-weight:500}
 .hero2 .cta{margin:0}
 .hero2 .cta .btn{padding:14px 24px}
 .hart{position:relative;display:flex;flex-direction:column;gap:6px}
-.hart .script{margin:0 0 0 auto;font-family:var(--font-script);font-size:clamp(26px,6vw,36px);line-height:1.05;text-align:right;color:var(--wine);max-width:11em}
 .hfigs{position:relative;aspect-ratio:1.25/1;width:100%}
 @media (max-width:819px){.hfigs{aspect-ratio:1.35/1;max-width:420px;margin-inline:auto}.hgrid{padding-block:26px 30px}}
 .hart figure{position:absolute;margin:0;background:#fff;border-radius:18px;box-shadow:0 14px 34px rgba(120,40,30,.22);overflow:hidden;display:flex;align-items:center;justify-content:center}
@@ -500,7 +503,7 @@ footer.foot2 .in{display:block;text-align:left}
 .fgrid{display:grid!important;grid-template-columns:minmax(0,1fr);gap:22px;padding-block:28px}
 @media (min-width:820px){.fgrid{grid-template-columns:1.2fr 1.4fr .8fr;align-items:center;gap:36px;padding-block:32px}}
 .fbrand img{height:64px;width:auto;display:block;margin-bottom:10px}
-.fscript{font-family:var(--font-script);font-size:28px;line-height:1.1;color:var(--wine);margin:0}
+.fscript{font-family:var(--font-serif);font-style:italic;font-weight:400;font-size:19px;line-height:1.3;color:var(--wine);margin:0;max-width:20em}
 .fgrid h3{font-family:var(--font-body);font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);margin-bottom:8px}
 .fgrid ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px;font-size:15px}
 .fgrid a{color:var(--ink);font-weight:600;text-underline-offset:3px}
@@ -516,7 +519,7 @@ footer.foot2 .in{display:block;text-align:left}
 <header class="top">
   <div class="strip"><div class="in"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6.5h11v9.5H2z"/><path d="M13 9.5h4.2l3.3 3.3V16H13z"/><circle cx="6.5" cy="17.5" r="1.8"/><circle cx="16.5" cy="17.5" r="1.8"/></svg>Enviamos para todo o Brasil</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.4L3 20l1.2-5A8.5 8.5 0 1 1 21 11.5z"/></svg>Pedido finalizado pelo WhatsApp</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 0 1-14 5.3M4 12a8 8 0 0 1 14-5.3"/><path d="M18 3v4h-4M6 21v-4h4"/></svg>Estoque atualizado</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"/></svg>Atendimento personalizado</span></div></div>
   <div class="in hmain">
-    <a class="logolink" href="#inicio" aria-label="BLT Infinity, início"><img class="logo" src="/logo-blt.png" alt="BLT Infinity" width="112" height="44"></a>
+    <a class="logolink" href="#inicio" aria-label="BLT Infinity, início"><img class="logo" src="/logo-blt.png" alt="BLT Infinity" width="147" height="58"><span class="ltag">A sorte de ter o mundo ao seu alcance</span></a>
     <form class="sbar" id="sbar" role="search"><input id="q" type="search" placeholder="O que você procura?" aria-label="Buscar produto"><button type="submit" aria-label="Buscar"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></button></form>
     <div class="hicons"><button class="hbtn hcart" id="hdrCart" type="button" aria-label="Abrir meu pedido"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.6 12.2a1.5 1.5 0 0 0 1.5 1.2h8.6a1.5 1.5 0 0 0 1.5-1.1L21 8H6.1"/></svg><b id="hdrCount">0</b></button></div>
   </div>
@@ -532,7 +535,7 @@ footer.foot2 .in{display:block;text-align:left}
         <p class="hsub">Explore uma seleção de produtos que une beleza, estilo, praticidade e personalidade.</p>
         <div class="cta"><a class="btn coral" href="#catalogo">Explore nosso catálogo →</a><a class="btn ghost2" href="#encomendar">Não encontrou? Peça aqui</a></div>
       </div>
-      <div class="hart" aria-hidden="true"><p class="script">A sorte de ter o mundo ao seu alcance ♡</p><div class="hfigs" id="heroArt"></div></div>
+      <div class="hart" aria-hidden="true"><div class="hfigs" id="heroArt"></div></div>
     </div>
   </div>
 
