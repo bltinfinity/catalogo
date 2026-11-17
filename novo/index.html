@@ -529,6 +529,13 @@ footer.foot2 .in{display:block;text-align:left}
 :root[data-theme="dark"] .hart figure img,:root[data-theme="dark"] .bn .deco figure img{filter:none}
 
 @media (max-width:480px){.bn{padding-right:48%}.bn .deco{width:46%;right:6px}.bn .deco figure{width:76%}.bn .deco .d2{width:66%}}
+
+/* hero com a foto da proposta (tecido rosé) */
+.hart{display:block}
+.heroimg{display:block;width:100%;height:auto;-webkit-mask-image:linear-gradient(to right,transparent,#000 14%,#000 86%,transparent),linear-gradient(to bottom,transparent,#000 16%,#000 84%,transparent);-webkit-mask-composite:source-in;mask-image:linear-gradient(to right,transparent,#000 14%,#000 86%,transparent),linear-gradient(to bottom,transparent,#000 16%,#000 84%,transparent);mask-composite:intersect}
+@media (min-width:820px){.hgrid{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)}.heroimg{width:112%;max-width:none;margin-left:-6%}}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .heroimg{-webkit-mask-image:none;mask-image:none;border-radius:20px}}
+:root[data-theme="dark"] .heroimg{-webkit-mask-image:none;mask-image:none;border-radius:20px}
 </style>
 
 <header class="top">
@@ -550,7 +557,7 @@ footer.foot2 .in{display:block;text-align:left}
         <p class="hsub">Explore uma seleção de produtos que une beleza, estilo, praticidade e personalidade.</p>
         <div class="cta"><a class="btn coral" href="#catalogo">Explore nosso catálogo →</a><a class="btn ghost2" href="#encomendar">Não encontrou? Peça aqui</a></div>
       </div>
-      <div class="hart" aria-hidden="true"><div class="hfigs" id="heroArt"></div></div>
+      <div class="hart"><img class="heroimg" src="/hero-blt.jpg" alt="Perfume, bolsa e cosméticos sobre tecido rosé" width="1244" height="702" fetchpriority="high"></div>
     </div>
   </div>
 
@@ -1077,7 +1084,7 @@ $('pdOverlay').addEventListener('click',function(e){
   var a = best('perfumes'), b = pick('cosmeticos',/Azelaic/i), c = best('diversos');
   [a,b,c].forEach(function(p){ if(p) used.push(p.id); });
   function fig(p,cls){ return p ? '<figure class="'+cls+'"><img src="'+photoOf(p)+'" alt="" loading="eager" decoding="async"></figure>' : ''; }
-  var art = $('heroArt'); if(art) art.insertAdjacentHTML('beforeend', fig(b,'hc2')+fig(a,'hc1')+fig(c,'hc3'));
+  
   var dA = $('decoA'), dB = $('decoB');
   var p4 = best('perfumes',used), p5 = pick('cosmeticos',/Collagen Retinol/i);
   if(dA) dA.innerHTML = fig(p4,'d1')+fig(p5,'d2');
