@@ -517,6 +517,18 @@ footer.foot2 .in{display:block;text-align:left}
 
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .hart figure{mix-blend-mode:normal;background:#fff;border-radius:18px;box-shadow:0 14px 34px rgba(0,0,0,.4);overflow:hidden}}
 :root[data-theme="dark"] .hart figure{mix-blend-mode:normal;background:#fff;border-radius:18px;box-shadow:0 14px 34px rgba(0,0,0,.4);overflow:hidden}
+
+/* fotos sem fundo branco e com mais brilho (hero e banners) */
+.hart figure img,.bn .deco figure img{filter:brightness(1.09) saturate(1.18) contrast(1.06)}
+.bn .deco{top:10px;bottom:10px;right:12px;width:44%;max-width:250px;aspect-ratio:auto;opacity:1}
+.bn .deco figure{background:transparent;box-shadow:none;border-radius:0;overflow:visible;mix-blend-mode:multiply;width:64%;aspect-ratio:1/1;height:auto}
+.bn .deco .d1{right:0;bottom:0;top:auto;left:auto;transform:rotate(4deg);z-index:2}
+.bn .deco .d2{left:0;top:0;bottom:auto;right:auto;width:56%;transform:rotate(-4deg);z-index:1}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .bn .deco figure{mix-blend-mode:normal;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 10px 24px rgba(0,0,0,.4)}:root:not([data-theme="light"]) .hart figure img,:root:not([data-theme="light"]) .bn .deco figure img{filter:none}}
+:root[data-theme="dark"] .bn .deco figure{mix-blend-mode:normal;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 10px 24px rgba(0,0,0,.4)}
+:root[data-theme="dark"] .hart figure img,:root[data-theme="dark"] .bn .deco figure img{filter:none}
+
+@media (max-width:480px){.bn{padding-right:48%}.bn .deco{width:46%;right:6px}.bn .deco figure{width:76%}.bn .deco .d2{width:66%}}
 </style>
 
 <header class="top">
@@ -1067,7 +1079,7 @@ $('pdOverlay').addEventListener('click',function(e){
   function fig(p,cls){ return p ? '<figure class="'+cls+'"><img src="'+photoOf(p)+'" alt="" loading="eager" decoding="async"></figure>' : ''; }
   var art = $('heroArt'); if(art) art.insertAdjacentHTML('beforeend', fig(b,'hc2')+fig(a,'hc1')+fig(c,'hc3'));
   var dA = $('decoA'), dB = $('decoB');
-  var p4 = best('perfumes',used), p5 = best('cosmeticos',used);
+  var p4 = best('perfumes',used), p5 = pick('cosmeticos',/Collagen Retinol/i);
   if(dA) dA.innerHTML = fig(p4,'d1')+fig(p5,'d2');
   var p6 = best('diversos',used), p7 = best('perfumes',used.concat(p4?[p4.id]:[]));
   if(dB) dB.innerHTML = fig(p6,'d1')+fig(p7,'d2');
