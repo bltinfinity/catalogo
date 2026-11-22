@@ -362,6 +362,9 @@ h1,h2,h3{font-family:var(--font-serif);font-weight:500}
 @media (min-width:520px){.top .strip span:nth-child(2){display:inline}}
 @media (min-width:860px){.top .strip span:nth-child(n+3){display:inline}.top .strip .in{font-size:13px}}
 .top.compact .strip{display:none}
+.top .strip{position:relative;overflow:hidden}
+.top .strip::after{content:"";position:absolute;right:max(-30px,calc(50% - 760px));top:-26px;width:190px;height:82px;pointer-events:none;opacity:.14;background:url("/infinito-coral.png") no-repeat center/contain}
+.top .strip>*{position:relative;z-index:1}
 .top .in.hmain{display:grid!important;grid-template-columns:auto 1fr auto;grid-template-areas:"logo search icons";align-items:center;gap:10px 24px;padding-block:10px!important}
 .top .in.hmain>a.logolink{grid-area:logo;grid-column:auto;grid-row:auto;display:block}
 .top .logo{height:56px;width:auto;margin:0;display:block}
@@ -396,11 +399,12 @@ h1,h2,h3{font-family:var(--font-serif);font-weight:500}
 
 /* hero */
 .hero2{background:radial-gradient(120% 140% at 85% 20%,var(--h3) 0%,var(--h2) 45%,var(--h1) 100%);overflow:hidden;position:relative}
-.hero2::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 80% at 20% 0%,rgba(255,255,255,.55),transparent 60%),repeating-linear-gradient(115deg,rgba(255,255,255,.0) 0 38px,rgba(255,255,255,.18) 38px 40px);opacity:.7;pointer-events:none}
+.hero2::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 80% at 20% 0%,rgba(255,255,255,.55),transparent 60%);opacity:.7;pointer-events:none}
 .hgrid{position:relative;display:grid;grid-template-columns:minmax(0,1fr);gap:24px;padding-block:32px 36px;align-items:center}
 @media (min-width:820px){.hgrid{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);padding-block:56px 60px;gap:40px}}
 .eyebrow2{display:flex;align-items:center;gap:14px;font-size:12px;font-weight:600;letter-spacing:.28em;color:var(--ink);text-transform:uppercase}
 .eyebrow2::after{content:"";flex:0 1 90px;height:1px;background:var(--ink);opacity:.5}
+.hero2::after{content:"";position:absolute;right:-90px;top:-40px;width:min(620px,80vw);height:min(270px,36vw);pointer-events:none;opacity:.12;z-index:0;background:url("/infinito-coral.png") no-repeat center/contain}
 .hero2 h1{font-size:clamp(34px,8.6vw,60px);line-height:1.08;margin:14px 0 14px;font-weight:500;color:var(--ink);letter-spacing:-.01em;text-wrap:balance}
 .hero2 h1 em{font-style:italic;color:var(--accent-ink);display:block}
 .hsub{font-size:clamp(15px,3.6vw,18px);color:var(--ink);opacity:.85;max-width:40ch;margin-bottom:22px}
@@ -502,9 +506,10 @@ footer.foot2 .in{display:block;text-align:left}
 .fpanel::after{content:"";position:absolute;right:-70px;top:-30px;width:340px;height:240px;pointer-events:none;opacity:.12;background:url("/infinito-coral.png") no-repeat center/contain}
 .fpanel>*{position:relative;z-index:1}
 .fgrid{display:grid!important;grid-template-columns:minmax(0,1fr);gap:22px;padding-block:28px}
-@media (min-width:820px){.fgrid{grid-template-columns:1fr 1.1fr .9fr;align-items:center;gap:0;padding-block:34px}.fgrid>div{padding-inline:36px}.fgrid>div:first-child{padding-left:0}.fgrid>div+div{border-left:1px solid rgba(117,32,48,.28)}}
+@media (min-width:820px){.fgrid{grid-template-columns:1fr 1fr;align-items:center;gap:0;padding-block:34px}.fgrid>div{padding-inline:36px;text-align:center}.fgrid ul{align-items:center}.fgrid>div+div{border-left:1px solid rgba(117,32,48,.28)}}
+.flogo{margin:0 max(12px,env(safe-area-inset-left,0px)) 14px;border-radius:24px;background:#fff7f4;border:1px solid rgba(117,32,48,.10);box-shadow:0 4px 14px rgba(117,32,48,.06);padding:30px 20px 26px;display:flex;justify-content:center}
 .fbrand{text-align:center}
-.fbrand img{height:72px;width:auto;display:block;margin:0 auto 12px}
+.fbrand img{height:84px;width:auto;display:block;margin:0 auto 12px}
 .fscript{font-family:var(--font-body);font-style:normal;font-weight:400;font-size:16px;line-height:1.45;color:var(--ink);margin:0 auto;max-width:17em;text-align:center}
 .fgrid h3{font-family:var(--font-body);font-size:13px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--ink);margin:0 0 12px}
 .fgrid ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;font-size:19px}
@@ -515,12 +520,12 @@ footer.foot2 .in{display:block;text-align:left}
 .fgrid a.ig{display:inline-flex;align-items:center;gap:12px}
 .fgrid a:focus-visible{outline:2px solid var(--btn-bg);outline-offset:3px;border-radius:999px}
 .fsobre{padding-bottom:40px;border-top:1px solid rgba(117,32,48,.18);padding-top:6px}
-.fsobre summary{cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;font-family:var(--font-body);font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink)}
+.fsobre summary{cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:center;gap:12px;padding:12px 0;font-family:var(--font-body);font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink)}
 .fsobre summary::-webkit-details-marker{display:none}
 .fsobre summary::after{content:"+";font-size:22px;font-weight:400;line-height:1;color:var(--btn-bg)}
 .fsobre details[open] summary::after{content:"\2212"}
 .fsobre summary:focus-visible{outline:2px solid var(--btn-bg);outline-offset:3px;border-radius:6px}
-.fsobre .stxt{max-width:62ch;display:flex;flex-direction:column;gap:12px;font-size:15px;line-height:1.6;color:var(--ink)}
+.fsobre .stxt{max-width:62ch;margin-inline:auto;text-align:center;display:flex;flex-direction:column;gap:12px;font-size:15px;line-height:1.6;color:var(--ink)}
 .fsobre .stxt p{margin:0}
 @media (max-width:819px){
 footer.foot2 .in{text-align:center}
@@ -529,9 +534,11 @@ footer.foot2 .in{text-align:center}
 .fsobre summary{justify-content:center}
 .fsobre .stxt{margin-inline:auto;text-align:center}
 }
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .flogo{background:var(--surface);border-color:var(--line)}}
+:root[data-theme="dark"] .flogo{background:var(--surface);border-color:var(--line)}
 .fbar{position:relative;z-index:1;margin:0 max(12px,env(safe-area-inset-left,0px)) 16px;border-radius:0 0 24px 24px;color:#fff;overflow:hidden;background:linear-gradient(100deg,#5a1424 0%,#741d31 55%,#8b2437 100%)}
 .fbar::before{content:"";position:absolute;right:-40px;bottom:-60px;width:60%;height:120px;border-radius:50%;background:rgba(255,255,255,.05);pointer-events:none}
-footer .fbar .in{display:flex!important;flex-direction:row;align-items:center;justify-content:flex-start;gap:20px;padding-block:20px 16px;padding-top:44px;position:relative}
+footer .fbar .in{display:flex!important;flex-direction:row;align-items:center;justify-content:center;gap:20px;padding-block:20px 16px;padding-top:44px;position:relative}
 .fbar .finf{order:0;width:52px;height:auto;flex:none}
 .fbar .fdiv{width:1px;height:26px;background:rgba(255,255,255,.4);flex:none}
 .fbar .motto{margin:0;font-size:15px;font-weight:400;letter-spacing:.18em;line-height:1.5;white-space:normal;color:#fff}
@@ -580,7 +587,7 @@ footer .fbar .in{display:flex!important;flex-direction:row;align-items:center;ju
       <div class="htext">
         <span class="eyebrow2">BLT Infinity</span>
         <h1>Um universo de escolhas, <em>feito para você.</em><span class="sr"> BLT Infinity: loja de produtos importados. Enviamos para todo o Brasil.</span></h1>
-        <p class="hsub">Explore uma seleção de produtos que une beleza, estilo, praticidade e personalidade.</p>
+        <p class="hsub">Explore uma seleção de produtos que combinam com você.</p>
         <div class="cta"><a class="btn coral" href="#catalogo">Explore nosso catálogo →</a><a class="btn ghost2" href="#encomendar">Não encontrou? Peça aqui</a></div>
       </div>
       <div class="hart"><img class="heroimg" src="/hero-blt.jpg" alt="Perfume, bolsa e cosméticos sobre tecido rosé" width="1244" height="702" fetchpriority="high"></div>
@@ -650,8 +657,8 @@ footer .fbar .in{display:flex!important;flex-direction:row;align-items:center;ju
 </main>
 
 <footer class="foot2">
+  <div class="flogo"><div class="fbrand"><img src="/logo-blt.png" alt="BLT Infinity" width="163" height="64"><p class="fscript">Mais que uma loja, um mundo de possibilidades.</p></div></div>
   <div class="fpanel"><div class="in fgrid">
-    <div class="fbrand"><img src="/logo-blt.png" alt="BLT Infinity" width="163" height="64"><p class="fscript">Mais que uma loja, um mundo de possibilidades.</p></div>
     <div><h3>Atendimento pelo WhatsApp</h3><ul>
       <li><a class="nb wa" href="https://wa.me/5588997689271" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>(88) 99768-9271</a></li>
       <li><a class="nb wa" href="https://wa.me/5585986806101" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>(85) 98680-6101</a></li>
