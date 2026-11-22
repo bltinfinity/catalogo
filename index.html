@@ -498,15 +498,23 @@ section{padding-block:44px 0}
 /* rodapé */
 footer.foot2{margin-top:56px;background:none;color:var(--ink);padding:0}
 footer.foot2 .in{display:block;text-align:left}
-.fpanel{background:var(--strip);border-radius:24px;margin:0 max(12px,env(safe-area-inset-left,0px));}
+.fpanel{position:relative;z-index:2;overflow:hidden;background:var(--strip);border-radius:24px;margin:0 max(12px,env(safe-area-inset-left,0px)) -26px;box-shadow:0 6px 18px rgba(117,32,48,.10)}
+.fpanel::after{content:"";position:absolute;right:-70px;top:-30px;width:340px;height:240px;pointer-events:none;opacity:.12;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e54d39' stroke-width='2.4' stroke-linecap='round'%3E%3Cpath d='M18.178 8c5.096 0 5.096 8 0 8-5.095 0-7.133-8-12.739-8-4.585 0-4.585 8 0 8 5.606 0 7.644-8 12.74-8z'/%3E%3C/svg%3E") no-repeat center/contain}
+.fpanel>*{position:relative;z-index:1}
 .fgrid{display:grid!important;grid-template-columns:minmax(0,1fr);gap:22px;padding-block:28px}
-@media (min-width:820px){.fgrid{grid-template-columns:1.2fr 1.4fr .8fr;align-items:center;gap:36px;padding-block:32px}}
-.fbrand img{height:64px;width:auto;display:block;margin-bottom:10px}
-.fscript{font-family:var(--font-body);font-style:normal;font-weight:400;font-size:16px;line-height:1.45;color:var(--muted);margin:0;max-width:22em}
-.fgrid h3{font-family:var(--font-body);font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);margin-bottom:8px}
-.fgrid ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px;font-size:15px}
-.fgrid a{color:var(--ink);font-weight:600;text-underline-offset:3px}
-.fsobre{padding-bottom:24px;border-top:1px solid var(--line);padding-top:6px}
+@media (min-width:820px){.fgrid{grid-template-columns:1fr 1.1fr .9fr;align-items:center;gap:0;padding-block:34px}.fgrid>div{padding-inline:36px}.fgrid>div:first-child{padding-left:0}.fgrid>div+div{border-left:1px solid rgba(117,32,48,.28)}}
+.fbrand{text-align:center}
+.fbrand img{height:72px;width:auto;display:block;margin:0 auto 12px}
+.fscript{font-family:var(--font-body);font-style:normal;font-weight:400;font-size:16px;line-height:1.45;color:var(--ink);margin:0 auto;max-width:17em;text-align:center}
+.fgrid h3{font-family:var(--font-body);font-size:13px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--ink);margin:0 0 12px}
+.fgrid ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;font-size:19px}
+.fgrid a{color:var(--ink);font-weight:500;text-decoration:none}
+.fgrid a svg{width:26px;height:26px;flex:none}
+.fgrid a.wa{display:inline-flex;align-items:center;gap:12px;padding:8px 20px 8px 14px;border-radius:999px;background:rgba(229,77,57,.13);background:color-mix(in srgb,var(--accent-ink) 14%,transparent);transition:background .15s}
+.fgrid a.wa:hover{background:rgba(229,77,57,.22);background:color-mix(in srgb,var(--accent-ink) 22%,transparent)}
+.fgrid a.ig{display:inline-flex;align-items:center;gap:12px}
+.fgrid a:focus-visible{outline:2px solid var(--btn-bg);outline-offset:3px;border-radius:999px}
+.fsobre{padding-bottom:40px;border-top:1px solid rgba(117,32,48,.18);padding-top:6px}
 .fsobre summary{cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;font-family:var(--font-body);font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink)}
 .fsobre summary::-webkit-details-marker{display:none}
 .fsobre summary::after{content:"+";font-size:22px;font-weight:400;line-height:1;color:var(--btn-bg)}
@@ -516,16 +524,19 @@ footer.foot2 .in{display:block;text-align:left}
 .fsobre .stxt p{margin:0}
 @media (max-width:819px){
 footer.foot2 .in{text-align:center}
-.fbrand img{margin-inline:auto}
-.fscript{margin-inline:auto}
+.fgrid>div+div{border-top:1px solid rgba(117,32,48,.22);padding-top:22px}
 .fgrid ul{align-items:center}
 .fsobre summary{justify-content:center}
 .fsobre .stxt{margin-inline:auto;text-align:center}
 }
-.fbar{background:var(--btn-bg);color:#fff;margin-top:18px}
-.fbar .in{display:flex!important;flex-wrap:wrap;gap:6px 24px;justify-content:center;text-align:center;align-items:center;padding-block:14px;font-size:13px}
-.fbar .motto{font-weight:600;letter-spacing:.03em;margin:0;white-space:normal}
-.fbar .motto .inf{color:#fff}
+.fbar{position:relative;z-index:1;margin:0 max(12px,env(safe-area-inset-left,0px)) 16px;border-radius:0 0 24px 24px;color:#fff;overflow:hidden;background:linear-gradient(100deg,#5a1424 0%,#741d31 55%,#8b2437 100%)}
+.fbar::before{content:"";position:absolute;right:-40px;bottom:-60px;width:60%;height:120px;border-radius:50%;background:rgba(255,255,255,.05);pointer-events:none}
+footer .fbar .in{display:flex!important;flex-direction:row;align-items:center;justify-content:flex-start;gap:20px;padding-block:20px 16px;padding-top:44px;position:relative}
+.fbar .finf{width:46px;height:auto;flex:none;fill:none;stroke:#f3a99c;stroke-width:1.8;stroke-linecap:round}
+.fbar .fdiv{width:1px;height:26px;background:rgba(255,255,255,.4);flex:none}
+.fbar .motto{margin:0;font-size:15px;font-weight:400;letter-spacing:.18em;line-height:1.5;white-space:normal;color:#fff}
+.fbar .motto strong{font-weight:700}
+@media (max-width:819px){footer .fbar .in{flex-direction:column;justify-content:center;text-align:center;gap:10px;padding-top:40px}.fbar .fdiv{display:none}.fbar .finf{width:36px}.fbar .motto{font-size:13px;letter-spacing:.08em}}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .top .logo,:root:not([data-theme="light"]) .fbrand img{background:#fff;border-radius:12px;padding:4px 10px}:root:not([data-theme="light"]) .hero2::before{opacity:.25}:root:not([data-theme="light"]) .ctile .cimg img{mix-blend-mode:normal}}
 :root[data-theme="dark"] .top .logo,:root[data-theme="dark"] .fbrand img{background:#fff;border-radius:12px;padding:4px 10px}
 :root[data-theme="dark"] .hero2::before{opacity:.25}
@@ -642,10 +653,10 @@ footer.foot2 .in{text-align:center}
   <div class="fpanel"><div class="in fgrid">
     <div class="fbrand"><img src="/logo-blt.png" alt="BLT Infinity" width="163" height="64"><p class="fscript">Mais que uma loja, um mundo de possibilidades.</p></div>
     <div><h3>Atendimento pelo WhatsApp</h3><ul>
-      <li><a class="nb" href="https://wa.me/5588997689271" target="_blank" rel="noopener">(88) 99768-9271</a></li>
-      <li><a class="nb" href="https://wa.me/5585986806101" target="_blank" rel="noopener">(85) 98680-6101</a></li>
+      <li><a class="nb wa" href="https://wa.me/5588997689271" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>(88) 99768-9271</a></li>
+      <li><a class="nb wa" href="https://wa.me/5585986806101" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>(85) 98680-6101</a></li>
     </ul></div>
-    <div><h3>Siga-nos</h3><ul><li><a href="https://www.instagram.com/bltinfinity/" target="_blank" rel="noopener">@bltinfinity</a></li></ul></div>
+    <div><h3>Siga-nos</h3><ul><li><a class="ig" href="https://www.instagram.com/bltinfinity/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r=".6" fill="currentColor"/></svg>@bltinfinity</a></li></ul></div>
   </div>
   <div class="in fsobre"><details><summary>Sobre a BLT Infinity</summary><div class="stxt">
     <p>A BLT Infinity nasceu da parceria entre Taty &amp; Lu e de uma paixão em comum: descobrir novidades e compartilhar o que há de melhor no universo dos importados.</p>
@@ -654,7 +665,7 @@ footer.foot2 .in{text-align:center}
     <p>Acreditamos que existem infinitas possibilidades de descobrir, experimentar e se encantar. E queremos fazer parte de cada uma dessas descobertas.</p>
     <p><strong>Explore nosso catálogo e seja muito bem-vindo(a) à BLT Infinity!</strong></p>
   </div></details></div></div>
-  <div class="fbar"><div class="in"><p class="motto">Infinito por essência. Importado para você!</p></div></div>
+  <div class="fbar"><div class="in"><svg class="finf" viewBox="0 7 24 10" aria-hidden="true"><path d="M18.178 8c5.096 0 5.096 8 0 8-5.095 0-7.133-8-12.739-8-4.585 0-4.585 8 0 8 5.606 0 7.644-8 12.74-8z"/></svg><span class="fdiv" aria-hidden="true"></span><p class="motto">Infinito por essência. <strong>Importado para você!</strong></p></div></div>
 </footer>
 
 
